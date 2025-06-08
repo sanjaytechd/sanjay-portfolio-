@@ -747,7 +747,7 @@ async function sendMessage() {
   appendMessage('You', msg, true);
   input.value = '';
   appendMessage('Santy', '<span style="color:#aaa;">Typing...</span>', false, true);
-  const res = await fetch('http://localhost:5000/chat', {
+  const res = await fetch('https://sanjay-portfolio-jl91.onrender.com/chat', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({message: msg})
