@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Professional Portfolio - Sanjay N</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    
+    <!-- Custom CSS -->
+    <style>
+      /* General Styling */
+      body {
+        font-family: "Roboto", sans-serif;
+        line-height: 1.6;
+        color: #333;
+      }
+      a {
+        text-decoration: none;
+      }
+      a:hover {
+        color: #007bff;
+      }
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: #333;
+        text-align: center;
+      }
+
+      /* Navbar Styling */
+      .navbar {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .navbar-brand {
+        font-size: 1.8rem;
+        font-weight: 700;
+      }
+      .nav-link {
+        font-weight: 500;
+        color: #333 !important;
+      }
+
+      /* Hero Section */
+      header {
+        background: url("{{ url_for('static', filename='images/paint.png') }}") no-repeat center center/cover;
+        height: 100vh;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      header h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        animation: fadeInDown 2s;
+      }
+      header p {
+        font-size: 1.2rem;
+        margin: 1rem 0;
+        animation: fadeInUp 2s;
+      }
+      header a {
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: white;
+        background-color: #007bff;
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+      }
+      header a:hover {
+        background-color: #0056b3;
+      }
+      .py-5 {
+    padding-top: 3rem !important;
+    padding-bottom: 0 !important; /* Remove bottom padding */
+}
+      /* About Section */
+      #about .card {
+        transition: transform 0.3s ease;
+      }
+      #about .card:hover {
+        transform: scale(1.05);
+      }
+
+      /* Projects Section */
+      #projects .card {
+        border: none;
+        transition: all 0.3s ease;
+      }
+      #projects .card:hover {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Skills Section */
+      .progress-bar {
+        transition: width 1s ease-in-out;
+      }
+
+      /* Footer */
+      footer {
+        background: #333;
+        color: white;
+        padding: 1rem 0;
+        text-align: center;
+      }
+      .footer-link {
+        color: #007bff;
+      }
+
+      /* Light/Dark Mode Toggle */
+      .mode-toggle {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: black;
+        background: white;
+        padding: 10px;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+      }
+
+      /* Dark mode styling */
+      body.dark-mode {
+        background-color: #121212;
+        color: white;
+      }
+      body.dark-mode header {
+        background-color: rgba(0, 0, 0, 0.7);
+      }
+      body.dark-mode .section-title {
+        color: #f8f9fa;
+      }
+      body.dark-mode .navbar {
+        background-color: #333;
+      }
+      
+      body.dark-mode .navbar-brand {
+        color: #f8f9fa;
+      }
+      body.dark-mode .mode-toggle{
+        color: white;
+        background: black;
+      }
+      body.dark-mode .nav-link {
+        color: #f8f9fa !important;
+      }
+      body.dark-mode footer {
+        background-color: #333;
+        color: #f8f9fa;
+      }
+      body.dark-mode .progress-bar {
+        background-color: #0d6efd;
+      }
+
+      .card {
+        transition: all 0.3s ease;
+      }
+      body.dark-mode .card {
+        background-color: #2d2d2d;
+        color: #f8f9fa;
+      }
+      body.dark-mode .dropdown-content {
+        background-color: #2d2d2d;
+        color: #f8f9fa;
+      }
+
+      .card-body {
+        transition: background-color 0.3s ease;
+      }
+      body.dark-mode .card-body {
+        background-color: #444;
+      }
+      body.dark-mode  .dropdown-content p {
+        color: white;
+      }
+      /* Elevated Dropdown Button */
+      .dropdown-btn {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        background-color: rgba(255, 255, 255, 0.6); /* Slightly opaque */
+        border: 2px solid #007bff;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        color: #007bff;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .dropdown-btn:hover {
+        background-color: rgba(0, 123, 255, 0.7); /* Darker background on hover */
+        color: #fff;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .dropdown-btn i {
+        margin: 0;
+      }
+
+      /* Animations */
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Dropdown content */
+      .dropdown-content {
+        display: none;
+        margin-top: 10px;
+        background-color: white;
+        border-radius: 5px;
+        padding: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .dropdown-content p {
+        color: #333;
+      }
+
+    
+    </style>
+  </head>
+  <body>
+
+    <!-- Hero Section -->
+    <header>
+
+      <div class="container">
+        <h1>Welcome to My Portfolio</h1>
+        <p class="lead">
+          I'm Sanjay N, Associate Data Engineer.<br>
+           AI-ML and DevOps Enthusiast.
+        </p>
+        <a href="#projects" class="btn btn-lg">Explore My Work</a>
+      </div>
+      <!-- Light/Dark Mode Toggle Icon -->
+      <div class="mode-toggle" onclick="toggleMode()">
+        <i id="mode-icon" class="fas fa-sun"></i>
+      </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-5">
+      <div class="container">
+        <h2 class="section-title">About Me</h2>
+        <div class="row g-4">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Who Am I?</h5>
+                <p class="card-text">
+                  I am a passionate data engineer with a keen interest in
+                  building scalable AI solutions.
+                </p>
+                <!-- Styled Button with Down Arrow -->
+                <button class="dropdown-btn" onclick="toggleDropdown('dropdown-1')">
+                  <i class="fas fa-chevron-down"></i>
+                </button>
+                <div id="dropdown-1" class="dropdown-content">
+                  <p><strong> EDUCATION:</strong><br>
+                    Bachelor of Engineering (Computer Science) at <strong>JSSATEB</strong>  2020 - 2024 (CGPA: 8.9/10.0)<br>
+PUC at <strong>RNS Composite PU College</strong> 2018 - 2020 (91.12%)<br>
+Class 10th at <strong>ST.Philomena’s Memorial High School</strong> 2018  (93.16%)<br></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Experience</h5>
+                <p class="card-text">
+                  Currently, Working as Associate Data Engineer @ <strong>Consulting Private Limited. </strong> 
+                  Nov 2024 - Present
+                </p>
+                <!-- Styled Button with Down Arrow -->
+                <button class="dropdown-btn" onclick="toggleDropdown('dropdown-2')">
+                  <i class="fas fa-chevron-down"></i>
+                </button>
+                <div id="dropdown-2" class="dropdown-content">
+                  <p><strong>INTERNSHIPS</strong><br>
+                    Intern @ <strong>DataSturdy Consulting Private Limited</strong> <br>Aug 2024 - Oct 2024<br>
+                    Machine Learning Intern @ <strong>Karostartup</strong><br>Nov 2023 - Jan 2024
+                </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+        <!-- AI Projects Section -->
+        <section id="projects" class="py-5">
+            <div class="container">
+              <h2 class="section-title">AI Projects</h2>
+              <div class="row g-4">
+                <div class="col-md-4">
+                  <div class="card">
+                   <img src="{{ url_for('static', filename='images/file.png') }}" class="card-img-top" alt="Dementia Detection" />
+                    <div class="card-body">
+                      <h5 class="card-title">Document Extraction</h5>
+                      <p class="card-text">
+                        Streamlined document extraction workflows for PPT, PDF, and DOCX files,
+                        converting content for improved chatbot query responses.
+                      </p>
+                           <!-- Styled Button with Down Arrow -->
+                <button class="dropdown-btn" onclick="toggleDropdown('dropdown-6')">
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                  <div id="dropdown-6" class="dropdown-content">
+                    <p><strong> TOOLS:</strong><br>
+                        Python<br>
+                      Azure OpenAI Services<br>
+                      Text Extraction<br>
+                      Semantic Chunking<br>
+                      Embeddings<br>
+                      Elastic Search<br>
+                    </p>
+                  </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="card">
+                    <img src="{{ url_for('static', filename='images/crawling.png') }}" class="card-img-top" alt="Quiz Game" />
+                    <div class="card-body">
+                      <h5 class="card-title">Web Scraping</h5>
+                      <p class="card-text">
+                        Developed and optimized web scraping solutions to extract and store data from websites,
+                        enabling efficient retrieval and integration into chatbot systems.
+                      </p>
+                                 <!-- Styled Button with Down Arrow -->
+                <button class="dropdown-btn" onclick="toggleDropdown('dropdown-7')">
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                  <div id="dropdown-7" class="dropdown-content">
+                    <p><strong> TOOLS:</strong><br>
+                      Python<br>
+                      Beautiful Soup<br>
+                      Recursive Scrapping<br>
+                      Data Cleaning<br>
+                      Elastic Search<br>
+                    </p>
+                  </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="card">
+                    <img src="{{ url_for('static', filename='images/ai-brain.png') }}" class="card-img-top" alt="Web Scraping" />
+                    <div class="card-body">
+                      <h5 class="card-title">Autogen-Agentic AI</h5>
+                      <p class="card-text">
+                        Implemented and optimized the Autogen Multi-Agent Framework to enhance chatbot autonomy and performance in complex tasks.
+                      </p>
+                                         <!-- Styled Button with Down Arrow -->
+                <button class="dropdown-btn" onclick="toggleDropdown('dropdown-8')">
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                  <div id="dropdown-8" class="dropdown-content">
+                    <p><strong> TOOLS:</strong><br>
+                      Python<br>
+                      Autogen ag2<br>
+                      SQL Agent and Tools<br>
+                      Document Agent and Tools<br>
+                      Prompt Engineering<br>
+                      Azure OpenAI Services<br>
+                      Multi-Agent Communication<br>
+                    </p>
+                  </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+            <!-- DevOps Projects Section -->
+    <section id="projects" class="py-5">
+        <div class="container">
+          <h2 class="section-title">DevOps Projects</h2>
+          <div class="row g-4">
+            <div class="col-md-4">
+              <div class="card">
+               <img src="{{ url_for('static', filename='images/devops.png') }}" class="card-img-top" alt="Dementia Detection" />
+                <div class="card-body">
+                  <h5 class="card-title">Finance me</h5>
+                  <p class="card-text">
+                    Automated and streamlined the CI/CD pipeline, improving deployment efficiency and system scalability. 
+                    Implemented continuous monitoring to track server performance and ensure operational reliability.
+                  </p>
+                    <!-- Styled Button with Down Arrow -->
+                <button class="dropdown-btn" onclick="toggleDropdown('dropdown-3')">
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                  <div id="dropdown-3" class="dropdown-content">
+                    <p><strong> TOOLS:</strong><br>
+                      GIT & GUTHUB<br>
+                      TERRAFORM<br>
+                      AWS SERVICES: EC2, IAM, SG, EBS<br>
+                      ANSIBLE<br>
+                      JENKINS<br>
+                      DOCKER<br>
+                      PROMETHEUS & GRAFANA<br>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card">
+                <img src="{{ url_for('static', filename='images/medical-service.png') }}" class="card-img-top" alt="Quiz Game" />
+                <div class="card-body">
+                  <h5 class="card-title">Medicure</h5>
+                  <p class="card-text">
+                    Automated the CI/CD pipeline for a healthcare network, improving deployment efficiency and scalability.
+                     Streamlined transitions to test and production environments.
+                  </p>
+                        <!-- Styled Button with Down Arrow -->
+                <button class="dropdown-btn" onclick="toggleDropdown('dropdown-4')">
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                  <div id="dropdown-4" class="dropdown-content">
+                    <p><strong> TOOLS:</strong><br>
+                        GIT & GUTHUB<br>
+                        TERRAFORM<br>
+                        AWS SERVICES: EC2, IAM, SG, EBS<br>
+                        ANSIBLE<br>
+                        JENKINS<br>
+                        DOCKER<br>
+                        KUBERNETES<br>
+                        PROMETHEUS & GRAFANA<br>
+                      </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card">
+                <img src="{{ url_for('static', filename='images/insurance.png') }}" class="card-img-top" alt="Web Scraping" />
+                <div class="card-body">
+                  <h5 class="card-title">Insure me</h5>
+                  <p class="card-text">
+                    Automated the CI/CD pipeline for an insurance domain project. 
+                    Enabled seamless packaging, and deployment to test and production environments with minimal manual effort.
+                  </p>
+                        <!-- Styled Button with Down Arrow -->
+                <button class="dropdown-btn" onclick="toggleDropdown('dropdown-5')">
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                  <div id="dropdown-5" class="dropdown-content">
+                    <p><strong> TOOLS:</strong><br>
+                        GIT & GUTHUB<br>
+                        AWS SERVICES: EC2, SG, EBS<br>
+                        ANSIBLE<br>
+                        JENKINS<br>
+                        DOCKER<br>
+                      </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+     <!-- Academic Projects Section -->
+     <section id="projects" class="py-5">
+        <div class="container">
+          <h2 class="section-title">Academic Projects</h2>
+          <div class="row g-4">
+            <div class="col-md-4">
+              <div class="card">
+               <img src="{{ url_for('static', filename='images/heart-rate.png') }}" class="card-img-top" alt="Dementia Detection" />
+                <div class="card-body">
+                  <h5 class="card-title">Dementia Detection</h5>
+                  <p class="card-text">
+                    Built a predictive system with SVM and CNN achieving 97%
+                    accuracy.
+                  </p>
+                  <!-- <a href="#" class="btn btn-primary">Learn More</a> -->
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card">
+                <img src="{{ url_for('static', filename='images/quiz.png') }}" class="card-img-top" alt="Quiz Game" />
+                <div class="card-body">
+                  <h5 class="card-title">Quiz Game</h5>
+                  <p class="card-text">
+                    Interactive Android game with category-wise quizzes.
+                  </p>
+                  <!-- <a href="#" class="btn btn-primary">Learn More</a> -->
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card">
+                <img src="{{ url_for('static', filename='images/detective.png') }}" class="card-img-top" alt="Web Scraping" />
+                <div class="card-body">
+                  <h5 class="card-title">Face Mask Detection</h5>
+                  <p class="card-text">
+                      Developed a Face Mask Detection system using a CNN model, achieving 95% accuracy.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+  
+      <!--
+    <!-- Skills Section -->
+      <section id="skills" class="py-5">
+        <div class="container">
+          <h2 class="section-title">Skills</h2>
+          <div class="row g-4">
+            <div class="col-md-6">
+              <h5>Technical Skills</h5>
+              <ul>
+                <li>
+                  <strong>Languages:</strong> Python, SQL, Java, Kotlin, HTML,
+                  CSS
+                </li>
+                <li>
+                  <strong>AI/ML:</strong> LLM, Autogen, CrewAI, Tessaract, EasyOCR, 
+                  OpenAI, Azure Cognitive services, LlamaIndex, ElasticSearch.
+                </li>
+                <li>
+                    <strong>DevOps:</strong> 
+                    <ol><strong>AWS services:</strong>EC2, S3, Cloud Watch, EBS, IAM , AMI.</ol>
+                 <ol><strong>CICD:</strong> Git & GitHub, Linux, Jenkins, Docker, Kubernetes, Ansible, Terraform, Prometheus, Grafana.</ol>  
+                  </li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <h5>Proficiency</h5>
+              <div class="progress mb-3">
+                <div
+                  class="progress-bar bg-success"
+                  role="progressbar"
+                  style="width: 95%"
+                >
+                  Python - 95%
+                </div>
+              </div>
+              <div class="progress mb-3">
+                <div
+                  class="progress-bar bg-info"
+                  role="progressbar"
+                  style="width: 90%"
+                >
+                  AI/ML - 90%
+                </div>
+              </div>
+              <div class="progress mb-3">
+                <div
+                  class="progress-bar bg-warning"
+                  role="progressbar"
+                  style="width: 80%"
+                >
+                  SQL - 80%
+                </div>
+              </div>
+              <div class="progress mb-3">
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  style="width: 90%;background-color: brown;"
+                >
+                  DevOps- 90%
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+        <!-- Certication Section -->
+     <section id="projects" class="py-5">
+        <div class="container">
+          <h2 class="section-title">Training and Certifications</h2>
+          <div class="row g-4">
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Devops Training @ STARAGILE</h5>
+                  <p class="card-text">
+                    During my DevOps certification at StarAgile, I gained hands-on experience with AWS services, and tools like Docker, Kubernetes, Jenkins, Terraform, and Ansible. 
+                    I automated CI/CD pipelines and infrastructure, enhancing system efficiency and scalability.
+                  </p>
+                  <!-- <a href="#" class="btn btn-primary">Learn More</a> -->
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Certificates</h5>
+                  <p class="card-text">
+                    <li>DevOps Fundamentals</li>
+                    <li>Docker Essentials: A Developer Introduction</li>
+                    <li>Scalable Web Application on Kubernetes</li>
+                    <li>Microsoft AI-900: AI Fundamentals</li>
+                  </p>
+                  <!-- <a href="#" class="btn btn-primary">Learn More</a> -->
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">AI-ML WorkShop @ ATS Learning Solutions</h5>
+                  <p class="card-text">
+                    Completed ATS Learning Solutions’ week-long workshop covering EDA, ML techniques, and algorithms,
+                    culminating in Microsoft AI-900 certification, showcasing proficiency in Azure AI Fundamentals.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+  
+    <!-- Contact Section -->
+    <section id="contact" class="py-5 bg-dark text-white">
+      <div class="container">
+        <h2 class="section-title">Contact Me</h2>
+        <p class="text-center">
+          Let’s collaborate! Reach out for projects, ideas, or queries.
+        </p>
+        <p class="text-center">
+          <strong><i class="fas fa-envelope"></i></strong> sanjaynbe2303@gmail.com<br />
+          <strong><i class="fas fa-phone"></i></strong> +91-8951427835<br />
+          <strong><i class="fab fa-linkedin"></i></strong> <a href="https://www.linkedin.com/in/sanjay-narayan-73681a202/" target="_blank" class="text-white">sanjay-narayan</a><br />
+          <strong><i class="fab fa-github"></i></strong> <a href="https://github.com/sanjaytechd" target="_blank" class="text-white">sanjaytechd</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- JavaScript -->
+    <script>
+      function toggleMode() {
+        // Toggle dark mode
+        document.body.classList.toggle("dark-mode");
+
+        // Change icon between sun and moon
+        const modeIcon = document.getElementById("mode-icon");
+        if (document.body.classList.contains("dark-mode")) {
+          modeIcon.classList.remove("fa-sun");
+          modeIcon.classList.add("fa-moon");
+        } else {
+          modeIcon.classList.remove("fa-moon");
+          modeIcon.classList.add("fa-sun");
+        }
+      }
+
+      function toggleDropdown(dropdownId) {
+        const dropdown = document.getElementById(dropdownId);
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+      }
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+   <!-- Gemini Chat Widget (Modern Glassmorphism UI) -->
+<div id="gemini-chat-widget" style="position:fixed;bottom:30px;right:30px;z-index:9999;">
+  <div id="chat-box" style="display:none;width:340px;height:440px;backdrop-filter:blur(12px);background:rgba(255,255,255,0.25);border-radius:18px;box-shadow:0 8px 32px 0 rgba(31,38,135,0.37);overflow:hidden;flex-direction:column;transition:box-shadow 0.3s;">
+    <div style="background:rgba(0,123,255,0.9);color:#fff;padding:14px 18px;display:flex;align-items:center;gap:10px;">
+      <img src='https://api.dicebear.com/7.x/bottts/svg?seed=Santy' alt="Santy" style="width:36px;height:36px;border-radius:50%;background:#fff;margin-right:8px;border:2px solid #fff;">
+      <span style="font-weight:bold;font-size:1.1rem;flex:1;">Santy</span>
+      <span style="font-size:1.3rem;cursor:pointer;opacity:0.7;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7" onclick="toggleChatBox()">&times;</span>
+    </div>
+    <div id="chat-messages" style="flex:1;overflow-y:auto;padding:16px 14px 10px 14px;height:320px;">
+      <!-- Messages will appear here -->
+    </div>
+    <div style="display:flex;align-items:center;padding:10px 12px;background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);">
+      <input id="chat-input" type="text" placeholder="Type your message..." style="flex:1;border:none;padding:10px 14px;border-radius:20px;background:rgba(255,255,255,0.7);margin-right:8px;outline:none;font-size:1rem;transition:background 0.2s;">
+      <button onclick="sendMessage()" style="background:linear-gradient(90deg,#007bff 60%,#00c6ff 100%);color:#fff;border:none;padding:10px 18px;border-radius:20px;font-weight:bold;box-shadow:0 2px 8px rgba(0,123,255,0.15);transition:background 0.2s,box-shadow 0.2s;cursor:pointer;">
+        <i class="fas fa-paper-plane"></i>
+      </button>
+    </div>
+  </div>
+  <button id="open-chat-btn" onclick="toggleChatBox()" style="background:linear-gradient(135deg,#007bff 60%,#00c6ff 100%);color:#fff;border:none;border-radius:50%;width:64px;height:64px;font-size:2.1rem;box-shadow:0 4px 16px rgba(0,123,255,0.25);transition:box-shadow 0.2s;">
+    <i class="fas fa-comments"></i>
+  </button>
+</div>
+
+<script>
+function toggleChatBox() {
+  const chatBox = document.getElementById('chat-box');
+  const openBtn = document.getElementById('open-chat-btn');
+  if (chatBox.style.display === 'none') {
+    chatBox.style.display = 'flex';
+    openBtn.style.display = 'none';
+    setTimeout(() => {
+      document.getElementById('chat-input').focus();
+    }, 200);
+  } else {
+    chatBox.style.display = 'none';
+    openBtn.style.display = 'block';
+  }
+}
+
+async function sendMessage() {
+  const input = document.getElementById('chat-input');
+  const msg = input.value.trim();
+  if (!msg) return;
+  appendMessage('You', msg, true);
+  input.value = '';
+  appendMessage('Santy', '<span style="color:#aaa;">Typing...</span>', false, true);
+  const res = await fetch('http://localhost:5000/chat', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({message: msg})
+  });
+  const data = await res.json();
+  // Remove "Typing..." placeholder
+  const chatMessages = document.getElementById('chat-messages');
+  chatMessages.lastChild.remove();
+  appendMessage('Santy', data.reply, false);
+}
+
+function appendMessage(sender, text, isUser=false, isTyping=false) {
+  const chatMessages = document.getElementById('chat-messages');
+  const msgDiv = document.createElement('div');
+  msgDiv.style.display = 'flex';
+  msgDiv.style.alignItems = 'flex-end';
+  msgDiv.style.marginBottom = '10px';
+  msgDiv.style.justifyContent = isUser ? 'flex-end' : 'flex-start';
+
+  const bubble = document.createElement('div');
+  bubble.innerHTML = `<span style="font-size:0.95em;">${text}</span>`;
+  bubble.style.maxWidth = '75%';
+  bubble.style.padding = '10px 16px';
+  bubble.style.borderRadius = isUser ? '18px 18px 4px 18px' : '18px 18px 18px 4px';
+  bubble.style.background = isUser ? 'linear-gradient(90deg,#007bff 60%,#00c6ff 100%)' : 'rgba(255,255,255,0.8)';
+  bubble.style.color = isUser ? '#fff' : '#222';
+  bubble.style.boxShadow = isUser ? '0 2px 8px rgba(0,123,255,0.10)' : '0 2px 8px rgba(0,0,0,0.07)';
+  bubble.style.marginLeft = isUser ? '0' : '8px';
+  bubble.style.marginRight = isUser ? '8px' : '0';
+  bubble.style.fontWeight = isTyping ? '400' : '500';
+
+  if (!isUser) {
+    // Add avatar for bot
+    const avatar = document.createElement('img');
+    avatar.src = 'https://api.dicebear.com/7.x/bottts/svg?seed=Santy';
+    avatar.alt = 'Santy';
+    avatar.style.width = '28px';
+    avatar.style.height = '28px';
+    avatar.style.borderRadius = '50%';
+    avatar.style.background = '#fff';
+    avatar.style.border = '1.5px solid #007bff';
+    avatar.style.marginRight = '6px';
+    msgDiv.appendChild(avatar);
+  }
+  msgDiv.appendChild(bubble);
+  chatMessages.appendChild(msgDiv);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// Allow Enter to send
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('chat-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') sendMessage();
+  });
+});
+</script>
+  </body>
+</html>
