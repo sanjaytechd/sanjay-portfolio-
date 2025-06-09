@@ -1,0 +1,235 @@
+
+      /* General Styling */
+      body {
+        font-family: "Roboto", sans-serif;
+        line-height: 1.6;
+        color: #333;
+      }
+      a {
+        text-decoration: none;
+      }
+      a:hover {
+        color: #007bff;
+      }
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: #333;
+        text-align: center;
+      }
+
+      /* Navbar Styling */
+      .navbar {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .navbar-brand {
+        font-size: 1.8rem;
+        font-weight: 700;
+      }
+      .nav-link {
+        font-weight: 500;
+        color: #333 !important;
+      }
+
+      /* Hero Section */
+      header {
+        background: url("../images/paint.png") no-repeat center center/cover;
+        height: 100vh;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      header h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        animation: fadeInDown 2s;
+      }
+      header p {
+        font-size: 1.2rem;
+        margin: 1rem 0;
+        animation: fadeInUp 2s;
+      }
+      header a {
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: white;
+        background-color: #007bff;
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+      }
+      header a:hover {
+        background-color: #0056b3;
+      }
+      .py-5 {
+    padding-top: 3rem !important;
+    padding-bottom: 0 !important; /* Remove bottom padding */
+}
+      /* About Section */
+      #about .card {
+        transition: transform 0.3s ease;
+      }
+      #about .card:hover {
+        transform: scale(1.05);
+      }
+
+      /* Projects Section */
+      #projects .card {
+        border: none;
+        transition: all 0.3s ease;
+      }
+      #projects .card:hover {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Skills Section */
+      .progress-bar {
+        transition: width 1s ease-in-out;
+      }
+
+      /* Footer */
+      footer {
+        background: #333;
+        color: white;
+        padding: 1rem 0;
+        text-align: center;
+      }
+      .footer-link {
+        color: #007bff;
+      }
+
+      /* Light/Dark Mode Toggle */
+      .mode-toggle {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: black;
+        background: white;
+        padding: 10px;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+      }
+
+      /* Dark mode styling */
+      body.dark-mode {
+        background-color: #121212;
+        color: white;
+      }
+      body.dark-mode header {
+        background-color: rgba(0, 0, 0, 0.7);
+      }
+      body.dark-mode .section-title {
+        color: #f8f9fa;
+      }
+      body.dark-mode .navbar {
+        background-color: #333;
+      }
+      
+      body.dark-mode .navbar-brand {
+        color: #f8f9fa;
+      }
+      body.dark-mode .mode-toggle{
+        color: white;
+        background: black;
+      }
+      body.dark-mode .nav-link {
+        color: #f8f9fa !important;
+      }
+      body.dark-mode footer {
+        background-color: #333;
+        color: #f8f9fa;
+      }
+      body.dark-mode .progress-bar {
+        background-color: #0d6efd;
+      }
+
+      .card {
+        transition: all 0.3s ease;
+      }
+      body.dark-mode .card {
+        background-color: #2d2d2d;
+        color: #f8f9fa;
+      }
+      body.dark-mode .dropdown-content {
+        background-color: #2d2d2d;
+        color: #f8f9fa;
+      }
+
+      .card-body {
+        transition: background-color 0.3s ease;
+      }
+      body.dark-mode .card-body {
+        background-color: #444;
+      }
+      body.dark-mode  .dropdown-content p {
+        color: white;
+      }
+      /* Elevated Dropdown Button */
+      .dropdown-btn {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        background-color: rgba(255, 255, 255, 0.6); /* Slightly opaque */
+        border: 2px solid #007bff;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        color: #007bff;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .dropdown-btn:hover {
+        background-color: rgba(0, 123, 255, 0.7); /* Darker background on hover */
+        color: #fff;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .dropdown-btn i {
+        margin: 0;
+      }
+
+      /* Animations */
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Dropdown content */
+      .dropdown-content {
+        display: none;
+        margin-top: 10px;
+        background-color: white;
+        border-radius: 5px;
+        padding: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .dropdown-content p {
+        color: #333;
+      }
+
