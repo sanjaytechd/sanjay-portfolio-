@@ -37,7 +37,13 @@
           I'm Sanjay N, Associate Data Engineer.<br>
            AI-ML and DevOps Enthusiast.
         </p>
-        <a href="#projects" class="btn btn-lg">Explore My Work</a>
+        <a href="{{ url_for('static', filename='resume/SanjayN_Resume.pdf') }}" class="btn btn-lg btn-outline-light ms-3" download>
+          <i class="fas fa-download"></i> Download My Resume
+        </a>
+        <br>
+       <a href="#projects" class="btn btn-lg lead" >
+  Explore My Work
+</a>
       </div>
       <!-- Light/Dark Mode Toggle Icon -->
       <div class="mode-toggle" onclick="toggleMode()">
@@ -103,25 +109,28 @@ Class 10th at <strong>ST.Philomena’s Memorial High School</strong> 2018  (93.1
               <div class="row g-4">
                 <div class="col-md-4">
                   <div class="card">
-                   <img src="{{ url_for('static', filename='images/file.png') }}" class="card-img-top" alt="Dementia Detection" />
+                   <img src="{{ url_for('static', filename='images/data-pipeline.png') }}" class="card-img-top" alt="Dementia Detection" />
                     <div class="card-body">
-                      <h5 class="card-title">Document Extraction</h5>
+                      <h5 class="card-title">Data Processing Pipelines</h5>
                       <p class="card-text">
-                        Streamlined document extraction workflows for PPT, PDF, and DOCX files,
-                        converting content for improved chatbot query responses.
+                        <ul> 
+                          <li>Multi-Object Metadata Extraction Pipeline</li>
+                      <li>Document Processing & Embedding Pipeline</li>
+                      <li>Recursive Web Scraping & Indexing Pipeline</li>
+                        </ul>
+                     
                       </p>
                            <!-- Styled Button with Down Arrow -->
                 <button class="dropdown-btn" onclick="toggleDropdown('dropdown-6')">
                     <i class="fas fa-chevron-down"></i>
                 </button>
                   <div id="dropdown-6" class="dropdown-content">
-                    <p><strong> TOOLS:</strong><br>
-                        Python<br>
-                      Azure OpenAI Services<br>
-                      Text Extraction<br>
-                      Semantic Chunking<br>
-                      Embeddings<br>
-                      Elastic Search<br>
+                    <p><strong>Tech Stack:</strong><br>
+                      Languages: Python, SQL<br>
+                      Libraries/Frameworks: FastAPI, Scrapy, Docling, LangChain<br>
+                      LLM & Embedding: Azure OpenAI (GPT-4o)<br>
+                      Search & Indexing: Elasticsearch<br>
+  
                     </p>
                   </div>
                     </div>
@@ -129,24 +138,26 @@ Class 10th at <strong>ST.Philomena’s Memorial High School</strong> 2018  (93.1
                 </div>
                 <div class="col-md-4">
                   <div class="card">
-                    <img src="{{ url_for('static', filename='images/crawling.png') }}" class="card-img-top" alt="Quiz Game" />
+                    <img src="{{ url_for('static', filename='images/bot.png') }}" class="card-img-top" alt="Quiz Game" />
                     <div class="card-body">
-                      <h5 class="card-title">Web Scraping</h5>
+                      <h5 class="card-title">Agentic Chatbot Development</h5>
                       <p class="card-text">
-                        Developed and optimized web scraping solutions to extract and store data from websites,
-                        enabling efficient retrieval and integration into chatbot systems.
+                        <ul>
+                          <li>Built and deployed a multi-agent chatbot using CrewAI (with Manager-Agent)</li>
+                          <li>Prototyping with AG2 (group chat) and Microsoft Autogen (Swarm)</li>
+                          <li>implemented tools, prompts, and agent logic across all.</li>
+                        </ul>
                       </p>
                                  <!-- Styled Button with Down Arrow -->
                 <button class="dropdown-btn" onclick="toggleDropdown('dropdown-7')">
                     <i class="fas fa-chevron-down"></i>
                 </button>
                   <div id="dropdown-7" class="dropdown-content">
-                    <p><strong> TOOLS:</strong><br>
-                      Python<br>
-                      Beautiful Soup<br>
-                      Recursive Scrapping<br>
-                      Data Cleaning<br>
-                      Elastic Search<br>
+                    <p><strong> Tech Stack:</strong><br>
+                      Languages: Python, SQL<br>
+                      Frameworks & Libraries: CrewAI, Microsoft Autogen, AG2 Autogen, LangChain, FastAPI<br>
+                      LLMs & Embeddings: Azure OpenAI (GPT-4, GPT-4o)<br>
+                      Search & Retrieval: Elasticsearch, LlamaIndex<br>
                     </p>
                   </div>
                     </div>
@@ -154,25 +165,25 @@ Class 10th at <strong>ST.Philomena’s Memorial High School</strong> 2018  (93.1
                 </div>
                 <div class="col-md-4">
                   <div class="card">
-                    <img src="{{ url_for('static', filename='images/ai-brain.png') }}" class="card-img-top" alt="Web Scraping" />
+                    <img src="{{ url_for('static', filename='images/integration.png') }}" class="card-img-top" alt="Web Scraping" />
                     <div class="card-body">
-                      <h5 class="card-title">Autogen-Agentic AI</h5>
+                      <h5 class="card-title">AI Integration Projects</h5>
                       <p class="card-text">
-                        Implemented and optimized the Autogen Multi-Agent Framework to enhance chatbot autonomy and performance in complex tasks.
+                       <ul>
+                        <li>Automated resume parsing and shortlisting with GPT-4o.</li>
+                        <li>Parsing invoice and extracting data for expense processing.</li>
+                        <li>Extracted and verified documents information using AI.</li>
+                       </ul>
                       </p>
                                          <!-- Styled Button with Down Arrow -->
                 <button class="dropdown-btn" onclick="toggleDropdown('dropdown-8')">
                     <i class="fas fa-chevron-down"></i>
                 </button>
                   <div id="dropdown-8" class="dropdown-content">
-                    <p><strong> TOOLS:</strong><br>
-                      Python<br>
-                      Autogen ag2<br>
-                      SQL Agent and Tools<br>
-                      Document Agent and Tools<br>
-                      Prompt Engineering<br>
-                      Azure OpenAI Services<br>
-                      Multi-Agent Communication<br>
+                    <p><strong> Tech Stack:</strong><br>
+                     Languages: Python<br>
+                      Techniques: Prompt Engineering<br>
+                      LLM & Embedding: GPT-4o (Azure OpenAI)<br>                    
                     </p>
                   </div>
                     </div>
@@ -403,10 +414,11 @@ Class 10th at <strong>ST.Philomena’s Memorial High School</strong> 2018  (93.1
                 <div class="card-body">
                   <h5 class="card-title">Certificates</h5>
                   <p class="card-text">
-                    <li>DevOps Fundamentals</li>
-                    <li>Docker Essentials: A Developer Introduction</li>
+                    <li>Azure AI Fundamentals (AI-900)</li>
+                    <li>Azure AI Engineer Associate (AI-102)</li>
+                    <li>DevOps Fundamentals (IBM)</li>
+                    <li>Docker Essentials (IBM)</li>
                     <li>Scalable Web Application on Kubernetes</li>
-                    <li>Microsoft AI-900: AI Fundamentals</li>
                   </p>
                   <!-- <a href="#" class="btn btn-primary">Learn More</a> -->
                 </div>

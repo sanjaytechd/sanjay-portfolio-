@@ -18,7 +18,21 @@
         color: #333;
         text-align: center;
       }
-
+     /* Match "lead" color for the Explore My Work button */
+a.btn.lead {
+  color: inherit;
+  background: none;
+  border: none;
+  font-weight: 400;
+  font-size: 1.25rem;
+  padding: 0;
+  transition: color 0.2s;
+}
+a.btn.lead:hover {
+  color: #007bff;
+  text-decoration: underline;
+  background: none;
+}
       /* Navbar Styling */
       .navbar {
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
