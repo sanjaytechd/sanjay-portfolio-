@@ -90,9 +90,39 @@ function appendMessage(sender, text, isUser=false, isTyping=false) {
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-// Allow Enter to send
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('chat-input').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') sendMessage();
+window.addEventListener('load', function () {
+  const modalElement = document.getElementById('userInfoModal');
+  const nameInput = document.getElementById('name');
+  const contactInput = document.getElementById('contactInfo');
+  const form = document.getElementById('user-info-form');
+
+  if (!modalElement || !form || !nameInput || !contactInput) return;
+
+  const shown = localStorage.getItem('userInfoShown');
+  if (!shown) {
+    const modal = new bootstrap.Modal(modalElement);
+    modal.show();
+    localStorage.setItem('userInfoShown', 'true');
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const name = nameInput.value.trim();
+    const contact = contactInput.value.trim();
+
+    // Close modal immediately
+    bootstrap.Modal.getInstance(modalElement).hide();
+
+    // If nothing is filled, skip sending
+    if (!name && !contact) return;
+
+    // Send data in background
+    fetch('/submit-info', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, contact }),
+    }).catch(err => {
+      console.error('Error sending visitor info:', err);
+    });
   });
 });

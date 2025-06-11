@@ -2,9 +2,20 @@ from flask import Flask, request, jsonify, render_template
 import requests
 import os
 from flask_cors import CORS
+from flask_mail import Mail, Message
+
 app = Flask(__name__)
 CORS(app)
 
+app.config.update(
+    MAIL_SERVER='smtp.gmail.com',
+    MAIL_PORT=587,
+    MAIL_USE_TLS=True,
+    MAIL_USERNAME='sanjaynbe2303@gmail.com',
+    MAIL_PASSWORD=os.getenv("EMAIL_APP_PASSWORD"), # store app password in env var
+)
+
+mail = Mail(app)
 
 API_KEY = os.getenv("GEMINI_API_KEY")
 API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={API_KEY}"
@@ -97,8 +108,29 @@ def chat():
     reply = ask_gemini(user_input)
     return jsonify({"reply": reply})
 
-if __name__ == "__main__":
+@app.route("/submit-info", methods=["POST"])
+def submit_info():
+    data = request.json
+    name = data.get("name", "").strip()
+    contact = data.get("contact", "").strip()
 
+    if not name and not contact:
+        return jsonify({"message": "Nothing to send"}), 200
+
+    message_body = f"New visitor info:\nName: {name}\nContact/Org: {contact}"
+    msg = Message(subject="New Portfolio Visitor Info",
+                  sender="sanjaynbe2303@gmail.com",
+                  recipients=["sanjaynbe2303@gmail.com"],
+                  body=message_body)
+    try:
+        mail.send(msg)
+        return jsonify({"message": "Email sent"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+
+if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))  # Get port from Render or default 5000
     app.run(host="0.0.0.0", port=port, debug=True)
     
