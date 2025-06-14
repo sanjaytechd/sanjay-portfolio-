@@ -13,10 +13,10 @@
         }
       }
 
-      function toggleDropdown(dropdownId) {
-        const dropdown = document.getElementById(dropdownId);
-        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-      }
+function toggleDropdown(dropdownId) {
+  const dropdown = document.getElementById(dropdownId);
+  dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+}
 
 function toggleChatBox() {
   const chatBox = document.getElementById('chat-box');
@@ -125,4 +125,17 @@ window.addEventListener('load', function () {
       console.error('Error sending visitor info:', err);
     });
   });
+});
+
+// Close blog dropdown if user clicks outside
+document.addEventListener('click', function (event) {
+  const dropdown = document.getElementById('blogDropdown');
+  const button = document.querySelector('.dropdown-btn');
+
+  // If click is outside the dropdown and button, close it
+  if (dropdown.style.display === 'block' &&
+      !dropdown.contains(event.target) &&
+      !button.contains(event.target)) {
+    dropdown.style.display = 'none';
+  }
 });

@@ -186,11 +186,11 @@ a.btn.lead:hover {
       /* Elevated Dropdown Button */
       .dropdown-btn {
         display: inline-block;
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
         background-color: rgba(255, 255, 255, 0.6); /* Slightly opaque */
         border: 2px solid #007bff;
-        border-radius: 50%;
+        border-radius: 25%;
         font-size: 1.5rem;
         color: #007bff;
         cursor: pointer;
@@ -259,4 +259,41 @@ body.dark-mode .modal-content {
 body.dark-mode .form-control {
   background-color: rgba(255, 255, 255, 0.2);
   color: white;
+}
+
+body.dark-mode .dropdown-content a {
+  color: white;
+}
+.dropdown-content a {
+  color: #007bff;
+  text-decoration: none;
+}
+.dropdown-content a:hover {
+  text-decoration: underline;
+}
+/* Fix blog dropdown links */
+.dropdown-content a {
+  display: block;
+  padding: 8px 12px;
+  color: #007bff;
+  background-color: transparent;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+}
+
+.dropdown-content a:hover {
+  background-color: #f0f0f0;
+  text-decoration: none;
+  color: #0056b3;
+}
+
+body.dark-mode .dropdown-content a {
+  color: #f8f9fa;
+}
+
+body.dark-mode .dropdown-content a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
 }

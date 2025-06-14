@@ -31,7 +31,16 @@
 
     <!-- Hero Section -->
     <header>
-
+       <!-- Blog Dropdown Button -->
+<div style="position:absolute; top:20px; left:20px; z-index:1000;">
+  <button class="dropdown-btn" onclick="toggleDropdown('blogDropdown')">
+    <i class="fas fa-bars"></i> 
+  </button>
+  <div id="blogDropdown" class="dropdown-content" style="min-width: 200px;">
+    <p><a href="https://datasturdy.com/a-developers-guide-to-fastapi-and-flask/" target="_blank"><i class="fas fa-book-open"></i> A Developer’s Guide to FastAPI and Flask</a></p>
+    <p><a href="https://datasturdy.com/building-autonomous-github-action-agents-using-crewai-framework/" target="_blank"><i class="fas fa-book-open"></i> Building Autonomous GitHub Action Agents Using CrewAI Framework</a></p>
+  </div>
+</div>
       <div class="container">
         <h1>Welcome to My Portfolio</h1>
         <p class="lead">
