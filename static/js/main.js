@@ -29,7 +29,7 @@ function toggleChatBox() {
     }, 200);
   } else {
     chatBox.style.display = 'none';
-    openBtn.style.display = 'block';
+    openBtn.style.display = 'flex';
   }
 }
 
