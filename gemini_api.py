@@ -1,18 +1,20 @@
 from flask import Flask, request, jsonify, render_template
 import os
+import logging
 from openai import OpenAI
 from flask_cors import CORS
 from flask_mail import Mail, Message
 
 app = Flask(__name__)
 CORS(app)
+logger = logging.getLogger(__name__)
 
 app.config.update(
     MAIL_SERVER='smtp.gmail.com',
     MAIL_PORT=587,
     MAIL_USE_TLS=True,
     MAIL_USERNAME='sanjaynbe2303@gmail.com',
-    MAIL_PASSWORD=os.getenv("EMAIL_APP_PASSWORD"), # store app password in env var
+    MAIL_PASSWORD=os.getenv("EMAIL_APP_PASSWORD"),
 )
 
 mail = Mail(app)
@@ -94,10 +96,16 @@ Guidelines for Responses:
 9. If information isn't in the profile, say you don't have those details
 10. Always provide clear, helpful, and relevant information'''
 def ask_groq(prompt):
-    full_prompt = f"{PORTFOLIO_CONTEXT}\n\nUser question: {prompt}\n\nFormat your response with HTML tags for better readability. Use <strong>, <em>, <a>, <ul>, <li>, <br> tags as appropriate. Keep the response concise and well-formatted."
+    formatting_rules = """You MUST format the answer as clean, readable HTML.
+Use an HTML <table> whenever the answer contains two or more items with the same fields, comparisons, timelines, education records, jobs, projects, skills, certifications, tools, or other structured data. Do not use a paragraph or bullet list for data that is naturally tabular.
+Every table MUST include <thead>, one header row with descriptive <th> cells, and <tbody> with <td> cells. Do not use Markdown table syntax.
+Use headings, short paragraphs, and <ul>/<li> lists for explanations that are not naturally tabular. Use <strong>, <em>, <a>, and <br> where helpful. Keep answers concise and accurate."""
     try:
         response = groq_client.chat.completions.create(
-            messages=[{"role": "user", "content": full_prompt}],
+            messages=[
+                {"role": "system", "content": f"{PORTFOLIO_CONTEXT}\n\nFormatting rules:\n{formatting_rules}"},
+                {"role": "user", "content": prompt},
+            ],
             model="openai/gpt-oss-20b",
         )
         return response.choices[0].message.content
@@ -123,6 +131,10 @@ def submit_info():
     if not name and not contact:
         return jsonify({"message": "Nothing to send"}), 200
 
+    if not app.config.get("MAIL_USERNAME") or not app.config.get("MAIL_PASSWORD"):
+        logger.error("Visitor email is not configured: missing MAIL_USERNAME or EMAIL_APP_PASSWORD")
+        return jsonify({"error": "Visitor email is not configured on the server"}), 503
+
     message_body = f"New visitor info:\nName: {name}\nContact/Org: {contact}"
     msg = Message(subject="New Portfolio Visitor Info",
                   sender="sanjaynbe2303@gmail.com",
@@ -132,7 +144,8 @@ def submit_info():
         mail.send(msg)
         return jsonify({"message": "Email sent"}), 200
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        logger.exception("Unable to send visitor email")
+        return jsonify({"error": "Unable to send visitor email"}), 502
 
 
 
