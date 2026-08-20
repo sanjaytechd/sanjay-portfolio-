@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, render_template
-import requests
 import os
+from openai import OpenAI
 from flask_cors import CORS
 from flask_mail import Mail, Message
 
@@ -17,8 +17,10 @@ app.config.update(
 
 mail = Mail(app)
 
-API_KEY = os.getenv("GEMINI_API_KEY")
-API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={API_KEY}"
+groq_client = OpenAI(
+    api_key=os.environ.get("GROQ_API_KEY"),
+    base_url="https://api.groq.com/openai/v1",
+)
 PORTFOLIO_CONTEXT ='''You are name is Santy .Act as an expert assistant who knows everything about Sanjay N., an Azure-certified AI Engineer and Associate Data Engineer at DataSturdy Consulting Pvt. Ltd. You have access to his professional background, technical experience, academic achievements, and project history as of June 8, 2025. Respond accurately and clearly to any questions related to his profile.
 Personal Information:
 Name: Sanjay N.
@@ -81,22 +83,16 @@ Dont make assumptions or provide opinions.
 Dont provide long explanations or unnecessary details.
 Make conversation small and to the point.
 Always respond factually based on this profile.'''
-def ask_gemini(prompt):
-    headers = {"Content-Type": "application/json"}
+def ask_groq(prompt):
     full_prompt = f"{PORTFOLIO_CONTEXT}\n\nUser question: {prompt}"
-    data = {
-        "contents": [
-            {"parts": [{"text": full_prompt}]}
-        ]
-    }
-    response = requests.post(API_URL, headers=headers, json=data)
-    if response.status_code == 200:
-        try:
-            return response.json()['candidates'][0]['content']['parts'][0]['text']
-        except Exception:
-            return "Error: Unexpected response format."
-    else:
-        return f"Error: {response.status_code} - {response.text}"
+    try:
+        response = groq_client.responses.create(
+            input=full_prompt,
+            model="openai/gpt-oss-20b",
+        )
+        return response.output_text
+    except Exception as error:
+        return f"Error: {error}"
 
 @app.route("/", methods=["GET"])
 def home():
@@ -105,7 +101,7 @@ def home():
 @app.route("/chat", methods=["POST"])
 def chat():
     user_input = request.json.get("message", "")
-    reply = ask_gemini(user_input)
+    reply = ask_groq(user_input)
     return jsonify({"reply": reply})
 
 @app.route("/submit-info", methods=["POST"])
