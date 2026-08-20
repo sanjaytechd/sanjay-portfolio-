@@ -56,24 +56,13 @@ function appendMessage(sender, text, isUser=false, isTyping=false) {
   const chatMessages = document.getElementById('chat-messages');
   const msgDiv = document.createElement('div');
   msgDiv.style.display = 'flex';
-  msgDiv.style.alignItems = 'flex-end';
-  msgDiv.style.marginBottom = '10px';
+  msgDiv.style.alignItems = 'flex-start';
+  msgDiv.style.marginBottom = '12px';
   msgDiv.style.justifyContent = isUser ? 'flex-end' : 'flex-start';
+  msgDiv.style.gap = '8px';
 
-  const bubble = document.createElement('div');
-  bubble.innerHTML = `<span style="font-size:0.95em;">${text}</span>`;
-  bubble.style.maxWidth = '75%';
-  bubble.style.padding = '10px 16px';
-  bubble.style.borderRadius = isUser ? '18px 18px 4px 18px' : '18px 18px 18px 4px';
-  bubble.style.background = isUser ? 'linear-gradient(90deg,#007bff 60%,#00c6ff 100%)' : 'rgba(255,255,255,0.8)';
-  bubble.style.color = isUser ? '#fff' : '#222';
-  bubble.style.boxShadow = isUser ? '0 2px 8px rgba(0,123,255,0.10)' : '0 2px 8px rgba(0,0,0,0.07)';
-  bubble.style.marginLeft = isUser ? '0' : '8px';
-  bubble.style.marginRight = isUser ? '8px' : '0';
-  bubble.style.fontWeight = isTyping ? '400' : '500';
-
+  // Add avatar for bot (before the bubble)
   if (!isUser) {
-    // Add avatar for bot
     const avatar = document.createElement('img');
     avatar.src = 'https://api.dicebear.com/7.x/bottts/svg?seed=Santy';
     avatar.alt = 'Santy';
@@ -82,9 +71,36 @@ function appendMessage(sender, text, isUser=false, isTyping=false) {
     avatar.style.borderRadius = '50%';
     avatar.style.background = '#fff';
     avatar.style.border = '1.5px solid #007bff';
-    avatar.style.marginRight = '6px';
+    avatar.style.flexShrink = '0';
     msgDiv.appendChild(avatar);
   }
+
+  const bubble = document.createElement('div');
+  bubble.innerHTML = `<div style="font-size:0.95em; line-height:1.4;">${text}</div>`;
+  bubble.style.maxWidth = '70%';
+  bubble.style.padding = '12px 14px';
+  bubble.style.borderRadius = isUser ? '18px 18px 4px 18px' : '18px 18px 18px 4px';
+  bubble.style.background = isUser ? 'linear-gradient(90deg,#007bff 60%,#00c6ff 100%)' : 'rgba(255,255,255,0.85)';
+  bubble.style.color = isUser ? '#fff' : '#222';
+  bubble.style.boxShadow = isUser ? '0 2px 8px rgba(0,123,255,0.15)' : '0 2px 8px rgba(0,0,0,0.08)';
+  bubble.style.wordWrap = 'break-word';
+  bubble.style.fontWeight = isTyping ? '400' : '500';
+  
+  // Style HTML elements within the bubble
+  const styleTag = document.createElement('style');
+  styleTag.textContent = `
+    #chat-messages a { color: ${isUser ? '#fff' : '#007bff'}; text-decoration: underline; font-weight: 600; cursor: pointer; }
+    #chat-messages strong { font-weight: 700; }
+    #chat-messages em { font-style: italic; }
+    #chat-messages ul, #chat-messages ol { margin: 8px 0; padding-left: 20px; }
+    #chat-messages li { margin: 4px 0; }
+    #chat-messages br { display: block; content: ''; }
+  `;
+  if (!document.head.querySelector('style[data-chat-styles]')) {
+    styleTag.setAttribute('data-chat-styles', 'true');
+    document.head.appendChild(styleTag);
+  }
+
   msgDiv.appendChild(bubble);
   chatMessages.appendChild(msgDiv);
   chatMessages.scrollTop = chatMessages.scrollHeight;
