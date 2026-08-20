@@ -67,7 +67,7 @@ function appendMessage(sender, text, isUser=false, isTyping=false) {
   // Add avatar for bot (before the bubble)
   if (!isUser) {
     const avatar = document.createElement('img');
-    avatar.src = 'https://api.dicebear.com/7.x/bottts/svg?seed=Santy';
+    avatar.src = '/static/images/bot.png';
     avatar.alt = 'Santy';
     avatar.style.width = '28px';
     avatar.style.height = '28px';
@@ -79,6 +79,7 @@ function appendMessage(sender, text, isUser=false, isTyping=false) {
   }
 
   const bubble = document.createElement('div');
+  bubble.className = isUser ? 'chat-bubble chat-bubble--user' : 'chat-bubble chat-bubble--bot';
   bubble.innerHTML = `<div style="font-size:0.95em; line-height:1.4;">${text}</div>`;
   bubble.style.maxWidth = '70%';
   bubble.style.padding = '12px 14px';
@@ -108,6 +109,18 @@ function appendMessage(sender, text, isUser=false, isTyping=false) {
   chatMessages.appendChild(msgDiv);
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+  const chatInput = document.getElementById('chat-input');
+  if (!chatInput) return;
+
+  chatInput.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      sendMessage();
+    }
+  });
+});
 
 window.addEventListener('load', function () {
   const modalElement = document.getElementById('userInfoModal');
@@ -146,15 +159,3 @@ window.addEventListener('load', function () {
   });
 });
 
-// Close blog dropdown if user clicks outside
-document.addEventListener('click', function (event) {
-  const dropdown = document.getElementById('blogDropdown');
-  const button = document.querySelector('.dropdown-btn');
-
-  // If click is outside the dropdown and button, close it
-  if (dropdown.style.display === 'block' &&
-      !dropdown.contains(event.target) &&
-      !button.contains(event.target)) {
-    dropdown.style.display = 'none';
-  }
-});

@@ -30,35 +30,64 @@
   <body>
 
     <!-- Hero Section -->
-    <header>
-       <!-- Blog Dropdown Button -->
-<div style="position:absolute; top:20px; left:20px; z-index:1000;">
-  <button class="dropdown-btn" onclick="toggleDropdown('blogDropdown')">
-    <i class="fas fa-bars"></i> 
-  </button>
-  <div id="blogDropdown" class="dropdown-content" style="min-width: 200px;">
-    <p><a href="https://datasturdy.com/a-developers-guide-to-fastapi-and-flask/" target="_blank"><i class="fas fa-book-open"></i> A Developer’s Guide to FastAPI and Flask</a></p>
-    <p><a href="https://datasturdy.com/building-autonomous-github-action-agents-using-crewai-framework/" target="_blank"><i class="fas fa-book-open"></i> Building Autonomous GitHub Action Agents Using CrewAI Framework</a></p>
-  </div>
-</div>
-      <div class="container">
-        <h1>Welcome to My Portfolio</h1>
-        <p class="lead">
-          I'm Sanjay N, Agentci AI Developer.<br>
-           AI-ML Enthusiast.
+    <header class="hero-shell" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+      <div class="hero-orb hero-orb--top"></div>
+      <div class="hero-orb hero-orb--bottom"></div>
+      <div class="mode-toggle" onclick="toggleMode()" style="position: absolute; top: 30px; right: 30px; background: rgba(255,255,255,0.15); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; cursor: pointer; backdrop-filter: blur(10px); transition: all 0.3s ease;">
+        <i id="mode-icon" class="fas fa-sun" style="color: white; font-size: 1.5rem;"></i>
+      </div>
+      <div class="container" style="position: relative; z-index: 10; text-align: center; color: white;">
+        <div class="hero-eyebrow" style="display: inline-block; padding: 12px 24px; border-radius: 50px; margin-bottom: 30px;">
+          <span style="font-size: 0.95rem; font-weight: 600; letter-spacing: 0.5px;"> Welcome to My Portfolio</span>
+        </div>
+        <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); font-weight: 800; line-height: 1.2; margin: 20px 0; text-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+          Hi, I'm <span style="background: linear-gradient(90deg, #fff 0%, #e0e0ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Sanjay N</span>
+        </h1>
+        <p style="font-size: clamp(1.1rem, 4vw, 1.4rem); font-weight: 500; opacity: 0.95; margin: 15px 0 40px 0; line-height: 1.6;">
+          <span style="display: block; margin-bottom: 8px;"> Agentic AI Developer |  GenAI Engineer</span>
+          <span style="display: block; opacity: 0.9;">Building scalable multi-agent LLM systems for enterprise</span>
         </p>
-        <a href="{{ url_for('static', filename='resume/Sanjay_GENAI_Engineer.pdf') }}" class="btn btn-lg btn-outline-light ms-3" download>
-          <i class="fas fa-download"></i> Download My Resume
-        </a>
-        <br>
-       <a href="#projects" class="btn btn-lg lead" >
-  Explore My Work
-</a>
+        <div class="hero-actions" style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin: 50px 0;">
+          <a href="{{ url_for('static', filename='resume/Sanjay_GENAI_Engineer.pdf') }}" download style="background: linear-gradient(135deg, #fff 0%, #f0f0ff 100%); color: #667eea; padding: 16px 36px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 1.05rem; transition: all 0.3s ease; border: 2px solid transparent; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.15);">
+            <i class="fas fa-download"></i> Download Resume
+          </a>
+          <a href="#projects" style="background: rgba(255,255,255,0.2); color: white; padding: 16px 36px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 1.05rem; transition: all 0.3s ease; border: 2px solid rgba(255,255,255,0.4); display: inline-flex; align-items: center; gap: 10px; backdrop-filter: blur(10px);">
+            Explore My Work <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        <div style="display: flex; gap: 16px; justify-content: center; margin-top: 60px; flex-wrap: wrap;">
+          <a href="https://github.com/sanjaytechd" target="_blank" style="background: rgba(255,255,255,0.15); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.3rem; transition: all 0.3s ease; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3);">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/sanjay-narayan-73681a202/" target="_blank" style="background: rgba(255,255,255,0.15); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.3rem; transition: all 0.3s ease; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3);">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="mailto:sanjaynbe2303@gmail.com" style="background: rgba(255,255,255,0.15); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.3rem; transition: all 0.3s ease; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3);">
+            <i class="fas fa-envelope"></i>
+          </a>
+        </div>
       </div>
-      <!-- Light/Dark Mode Toggle Icon -->
-      <div class="mode-toggle" onclick="toggleMode()">
-        <i id="mode-icon" class="fas fa-sun"></i>
+      <div style="position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); animation: bounce 2s infinite;">
+        <i class="fas fa-chevron-down" style="color: white; font-size: 1.5rem; opacity: 0.7;"></i>
       </div>
+      <style>
+        @keyframes bounce {
+          0%, 100% { transform: translateX(-50%) translateY(0); }
+          50% { transform: translateX(-50%) translateY(10px); }
+        }
+        header a:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 12px 32px rgba(0,0,0,0.2) !important;
+        }
+        .dropdown-btn:hover {
+          background: rgba(255,255,255,0.25) !important;
+          transform: scale(1.05);
+        }
+        .mode-toggle:hover {
+          background: rgba(255,255,255,0.25) !important;
+          transform: scale(1.05);
+        }
+      </style>
     </header>
 
     <!-- About Section -->
@@ -82,7 +111,7 @@
                   <p><strong> EDUCATION:</strong><br>
                     Bachelor of Engineering (Computer Science) at <strong>JSSATEB</strong>  2020 - 2024 (CGPA: 8.9/10.0)<br>
 PUC at <strong>RNS Composite PU College</strong> 2018 - 2020 (91.12%)<br>
-Class 10th at <strong>ST.Philomena’s Memorial High School</strong> 2018  (93.15%)<br></p>
+Class 10th at <strong>ST.Philomena's Memorial High School</strong> 2018  (93.15%)<br></p>
                 </div>
               </div>
             </div>
@@ -92,7 +121,7 @@ Class 10th at <strong>ST.Philomena’s Memorial High School</strong> 2018  (93.1
               <div class="card-body">
                 <h5 class="card-title">Experience</h5>
                 <p class="card-text">
-                  Currently, Working as Data Scientist(Agentic AI Dev) @ <strong>CAI. </strong> 
+                  Currently, Working as Data Scientist(Agentic AI Dev) @ <strong>CAI. </strong><br> 
                   May 2026 - Present
                 </p>
                 <!-- Styled Button with Down Arrow -->
@@ -119,7 +148,7 @@ Class 10th at <strong>ST.Philomena’s Memorial High School</strong> 2018  (93.1
               <div class="row g-4">
                 <div class="col-md-4">
                   <div class="card">
-                   <img src="{{ url_for('static', filename='images/doc_inti.png') }}" class="card-img-top" alt="Document Intelligence platform" />
+                   <img src="{{ url_for('static', filename='images/doc_inti.png') }}" class="card-img-top project-image project-image--document" alt="Document Intelligence platform" />
                     <div class="card-body">
                       <h5 class="card-title">Document Intelligence platform</h5>
                       <p class="card-text">A powerful document and data query system that leverages AI agents to extract actionable insights from documents and SQL databases in real time efficiently</p>
@@ -143,10 +172,10 @@ Class 10th at <strong>ST.Philomena’s Memorial High School</strong> 2018  (93.1
                 </div>
                 <div class="col-md-4">
                   <div class="card">
-                    <img src="{{ url_for('static', filename='images/excel.png') }}" class="card-img-top" alt="Agentic Chatbot Development" />
+                    <img src="{{ url_for('static', filename='images/excel.png') }}" class="card-img-top project-image project-image--analytics" alt="Conversational Data Analytics platform" />
                     <div class="card-body">
                       <h5 class="card-title">AI-Powered Conversational Data Analytics Platform</h5>
-                      <p class="card-text">An end-to-end, no-code AI platform that turns uploaded datasets into instant insights, visualizations, and dashboards using natural language.</p>
+                      <p class="card-text">An end-to-end, no-code AI platform that turns uploaded datasets into instant insights, visualizations, and dashboards </p>
                 <button class="dropdown-btn" onclick="toggleDropdown('dropdown-7')">
                     <i class="fas fa-chevron-down"></i>
                 </button>
@@ -165,7 +194,7 @@ Class 10th at <strong>ST.Philomena’s Memorial High School</strong> 2018  (93.1
                 </div>
                 <div class="col-md-4">
                   <div class="card">
-                    <img src="{{ url_for('static', filename='images/inci.png') }}" class="card-img-top" alt="AI Integration Projects" />
+                    <img src="{{ url_for('static', filename='images/inci.png') }}" class="card-img-top project-image project-image--incident" alt="Incident Management AI Assistant" />
                     <div class="card-body">
                       <h5 class="card-title">Multi-Agent Incident Management AI Assistant</h5>
                       <p class="card-text">An intelligent multi-agent system that leverages Langgraph Multi agent system and LLM to provide contextual incident management support.</p>
@@ -198,10 +227,10 @@ Class 10th at <strong>ST.Philomena’s Memorial High School</strong> 2018  (93.1
           <div class="row g-4">
             <div class="col-md-4">
               <div class="card">
-               <img src="{{ url_for('static', filename='images/devops.png') }}" class="card-img-top" alt="Finance me" />
+               <img src="{{ url_for('static', filename='images/devops.png') }}" class="card-img-top project-image project-image--finance" alt="Finance me CI/CD project" />
                 <div class="card-body">
                   <h5 class="card-title">Finance me</h5>
-                  <p class="card-text">Automated CI/CD pipeline with continuous monitoring for deployment efficiency and scalability</p>
+                  <p class="card-text">Automated CI/CD pipeline with continuous monitoring for deployment efficiency</p>
                     <!-- Styled Button with Down Arrow -->
                 <button class="dropdown-btn" onclick="toggleDropdown('dropdown-3')">
                     <i class="fas fa-chevron-down"></i>
@@ -220,7 +249,7 @@ Class 10th at <strong>ST.Philomena’s Memorial High School</strong> 2018  (93.1
             </div>
             <div class="col-md-4">
               <div class="card">
-                <img src="{{ url_for('static', filename='images/medical-service.png') }}" class="card-img-top" alt="Medicure" />
+                <img src="{{ url_for('static', filename='images/medical-service.png') }}" class="card-img-top project-image project-image--medicure" alt="Medicure healthcare deployment project" />
                 <div class="card-body">
                   <h5 class="card-title">Medicure</h5>
                   <p class="card-text">Healthcare CI/CD automation with Kubernetes orchestration for seamless deployment</p>
@@ -242,7 +271,7 @@ Class 10th at <strong>ST.Philomena’s Memorial High School</strong> 2018  (93.1
             </div>
             <div class="col-md-4">
               <div class="card">
-                <img src="{{ url_for('static', filename='images/insurance.png') }}" class="card-img-top" alt="Insure me" />
+                <img src="{{ url_for('static', filename='images/insurance.png') }}" class="card-img-top project-image project-image--insure" alt="Insure me deployment project" />
                 <div class="card-body">
                   <h5 class="card-title">Insure me</h5>
                   <p class="card-text">Insurance domain CI/CD automation enabling seamless packaging and deployment</p>
@@ -266,68 +295,43 @@ Class 10th at <strong>ST.Philomena’s Memorial High School</strong> 2018  (93.1
         </div>
       </section>
 
-      <!--
-    <!-- Skills Section -->
+      <!-- Skills Section -->
       <section id="skills" class="py-5">
         <div class="container">
-          <h2 class="section-title">Skills</h2>
-          <div class="row g-4">
-            <div class="col-md-6">
-              <h5>Technical Skills</h5>
-              <ul>
-                <li>
-                  <strong>Languages:</strong> Python, SQL, Java, Kotlin, HTML,
-                  CSS
-                </li>
-                <li>
-                  <strong>AI/ML:</strong> LLM, Autogen, CrewAI, Tessaract, EasyOCR, 
-                  OpenAI, Azure Cognitive services, LlamaIndex, ElasticSearch.
-                </li>
-                <li>
-                    <strong>DevOps:</strong> 
-                    <ol><strong>AWS services:</strong>EC2, S3, Cloud Watch, EBS, IAM , AMI.</ol>
-                 <ol><strong>CICD:</strong> Git & GitHub, Linux, Jenkins, Docker, Kubernetes, Ansible, Terraform, Prometheus, Grafana.</ol>  
-                  </li>
-              </ul>
+          <h2 class="section-title">Skills & Expertise</h2>
+          <div class="skills-layout">
+            <div class="skills-panel">
+              <p class="skills-kicker">What I work with</p>
+              <h3>Building intelligent systems from idea to production.</h3>
+              <p class="skills-intro">
+                A practical toolkit for designing agentic AI products, reliable data platforms,
+                and the cloud infrastructure that keeps them running.
+              </p>
+              <div class="skill-groups">
+                <div class="skill-group">
+                  <h4><i class="fas fa-code"></i> Languages</h4>
+                  <div class="skill-tags"><span>Python</span><span>SQL</span><span>Java</span></div>
+                </div>
+                <div class="skill-group">
+                  <h4><i class="fas fa-brain"></i> AI & Data</h4>
+                  <div class="skill-tags"><span>LLMs</span><span>LangGraph</span><span>CrewAI</span><span>AutoGen</span><span>OpenAI</span><span>Azure AI</span><span>Elasticsearch</span></div>
+                </div>
+                <div class="skill-group">
+                  <h4><i class="fas fa-cloud"></i> Cloud & Delivery</h4>
+                  <div class="skill-tags"><span>AWS</span><span>Docker</span><span>Kubernetes</span><span>Jenkins</span><span>Terraform</span><span>Prometheus</span><span>Grafana</span></div>
+                </div>
+              </div>
             </div>
-            <div class="col-md-6">
-              <h5>Proficiency</h5>
-              <div class="progress mb-3">
-                <div
-                  class="progress-bar bg-success"
-                  role="progressbar"
-                  style="width: 95%"
-                >
-                  Python - 95%
-                </div>
+            <div class="skills-panel proficiency-panel">
+              <p class="skills-kicker">Core strengths</p>
+              <h3>Focused where it matters.</h3>
+              <div class="proficiency-list">
+                <div class="proficiency-item"><div><span>Python & backend systems</span><strong>95%</strong></div><div class="proficiency-track"><span style="width: 95%"></span></div></div>
+                <div class="proficiency-item"><div><span>Agentic AI & LLM applications</span><strong>90%</strong></div><div class="proficiency-track"><span style="width: 90%"></span></div></div>
+                <div class="proficiency-item"><div><span>Data engineering & SQL</span><strong>85%</strong></div><div class="proficiency-track"><span style="width: 85%"></span></div></div>
+                <div class="proficiency-item"><div><span>Cloud & DevOps delivery</span><strong>90%</strong></div><div class="proficiency-track"><span style="width: 90%"></span></div></div>
               </div>
-              <div class="progress mb-3">
-                <div
-                  class="progress-bar bg-info"
-                  role="progressbar"
-                  style="width: 90%"
-                >
-                  AI/ML - 90%
-                </div>
-              </div>
-              <div class="progress mb-3">
-                <div
-                  class="progress-bar bg-warning"
-                  role="progressbar"
-                  style="width: 80%"
-                >
-                  SQL - 80%
-                </div>
-              </div>
-              <div class="progress mb-3">
-                <div
-                  class="progress-bar"
-                  role="progressbar"
-                  style="width: 90%;background-color: brown;"
-                >
-                  DevOps- 90%
-                </div>
-              </div>
+              <div class="skills-note"><i class="fas fa-arrow-up-right-dots"></i><span>From prototype to dependable production workflow.</span></div>
             </div>
           </div>
         </div>
@@ -369,7 +373,7 @@ Class 10th at <strong>ST.Philomena’s Memorial High School</strong> 2018  (93.1
                 <div class="card-body">
                   <h5 class="card-title">AI-ML WorkShop @ ATS Learning Solutions</h5>
                   <p class="card-text">
-                    Completed ATS Learning Solutions’ week-long workshop covering EDA, ML techniques, and algorithms,
+                    Completed ATS Learning Solutions' week-long workshop covering EDA, ML techniques, and algorithms,
                     culminating in Microsoft AI-900 certification, showcasing proficiency in Azure AI Fundamentals.
                   </p>
                 </div>
@@ -384,7 +388,7 @@ Class 10th at <strong>ST.Philomena’s Memorial High School</strong> 2018  (93.1
       <div class="container">
         <h2 class="section-title">Contact Me</h2>
         <p class="text-center">
-          Let’s collaborate! Reach out for projects, ideas, or queries.
+          Let's collaborate! Reach out for projects, ideas, or queries.
         </p>
         <p class="text-center">
           <strong><i class="fas fa-envelope"></i></strong> sanjaynbe2303@gmail.com<br />
@@ -400,8 +404,8 @@ Class 10th at <strong>ST.Philomena’s Memorial High School</strong> 2018  (93.1
 <div id="gemini-chat-widget" style="position:fixed;bottom:30px;right:30px;z-index:9999;">
   <div id="chat-box" style="display:none;width:340px;height:440px;backdrop-filter:blur(12px);background:rgba(255,255,255,0.25);border-radius:18px;box-shadow:0 8px 32px 0 rgba(31,38,135,0.37);overflow:hidden;flex-direction:column;transition:box-shadow 0.3s;">
     <div style="background:rgba(0,123,255,0.9);color:#fff;padding:14px 18px;display:flex;align-items:center;gap:10px;">
-      <img src='https://api.dicebear.com/7.x/bottts/svg?seed=Santy' alt="Santy" style="width:36px;height:36px;border-radius:50%;background:#fff;margin-right:8px;border:2px solid #fff;">
-      <span style="font-weight:bold;font-size:1.1rem;flex:1;">Santy</span>
+      <img src="{{ url_for('static', filename='images/bot.png') }}" alt="Santy" class="chat-avatar">
+      <span class="chat-title"><strong>Santy</strong><small>AI portfolio guide</small></span>
       <span style="font-size:1.3rem;cursor:pointer;opacity:0.7;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7" onclick="toggleChatBox()">&times;</span>
     </div>
     <div id="chat-messages" style="flex:1;overflow-y:auto;padding:16px 14px 10px 14px;height:320px;">
@@ -409,13 +413,14 @@ Class 10th at <strong>ST.Philomena’s Memorial High School</strong> 2018  (93.1
     </div>
     <div style="display:flex;align-items:center;padding:10px 12px;background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);">
       <input id="chat-input" type="text" placeholder="Type your message..." style="flex:1;border:none;padding:10px 14px;border-radius:20px;background:rgba(255,255,255,0.7);margin-right:8px;outline:none;font-size:1rem;transition:background 0.2s;">
-      <button onclick="sendMessage()" style="background:linear-gradient(90deg,#007bff 60%,#00c6ff 100%);color:#fff;border:none;padding:10px 18px;border-radius:20px;font-weight:bold;box-shadow:0 2px 8px rgba(0,123,255,0.15);transition:background 0.2s,box-shadow 0.2s;cursor:pointer;">
+      <button onclick="sendMessage()" class="chat-send" aria-label="Send message">
         <i class="fas fa-paper-plane"></i>
       </button>
     </div>
   </div>
-  <button id="open-chat-btn" onclick="toggleChatBox()" style="background:linear-gradient(135deg,#007bff 60%,#00c6ff 100%);color:#fff;border:none;border-radius:50%;width:64px;height:64px;font-size:2.1rem;box-shadow:0 4px 16px rgba(0,123,255,0.25);transition:box-shadow 0.2s;">
-    <i class="fas fa-comments"></i>
+  <button id="open-chat-btn" onclick="toggleChatBox()" aria-label="Open Santy chat">
+    <span class="chat-launcher-status"></span>
+    <span class="chat-launcher-label">ASK SANTY</span>
   </button>
 </div>
 <!-- Stylish Glassmorphism Modal (Smaller Width) -->
