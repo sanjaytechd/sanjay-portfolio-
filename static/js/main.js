@@ -49,7 +49,10 @@ async function sendMessage() {
   // Remove "Typing..." placeholder
   const chatMessages = document.getElementById('chat-messages');
   chatMessages.lastChild.remove();
-  appendMessage('Santy', data.reply, false);
+  
+  // Add inline styles to links in the response for better visibility
+  let styledReply = data.reply.replace(/<a\s+href=/g, '<a style="color: #0056cc; font-weight: 700; text-decoration: underline;" href=');
+  appendMessage('Santy', styledReply, false);
 }
 
 function appendMessage(sender, text, isUser=false, isTyping=false) {
@@ -89,7 +92,7 @@ function appendMessage(sender, text, isUser=false, isTyping=false) {
   // Style HTML elements within the bubble
   const styleTag = document.createElement('style');
   styleTag.textContent = `
-    #chat-messages a { color: ${isUser ? '#fff' : '#007bff'}; text-decoration: underline; font-weight: 600; cursor: pointer; }
+    #chat-messages a { text-decoration: underline; cursor: pointer; }
     #chat-messages strong { font-weight: 700; }
     #chat-messages em { font-style: italic; }
     #chat-messages ul, #chat-messages ol { margin: 8px 0; padding-left: 20px; }

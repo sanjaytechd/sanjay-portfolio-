@@ -65,10 +65,10 @@ PUC @ RNS Composite PU College (2018-2020) | 91.12%
 Class 10th @ ST. Philomena's Memorial High School (2018) | 93.16%
 
 Key Projects:
-1. Document Intelligence Platform - AI-powered document and SQL query system with semantic search
-2. Conversational Data Analytics Platform - No-code platform for natural-language insights and dashboards
-3. Multi-Agent Incident Management AI Assistant - LangGraph-based system for incident routing and SOP retrieval
-4. Comprehensive Dementia Prediction System - SVM and CNN models achieving 96% (SVM) and 97% (CNN) accuracy
+1. Document Intelligence Platform - AI-powered document and SQL query system with semantic search project  github project link: https://github.com/sanjaytechd/Document_Intelligence_Platform  
+2. Conversational Data Analytics Platform - No-code platform for natural-language insights and dashboards github project link:https://github.com/sanjaytechd/AI_Powered_Data_Analytcis_Platform
+3. Multi-Agent Incident Management AI Assistant - LangGraph-based system for incident routing and SOP retrieval : github project link:https://github.com/sanjaytechd/Incident_Management_System
+4. Comprehensive Dementia Prediction System - SVM and CNN models achieving 96% (SVM) and 97% (CNN) accuracy : github project link:https://github.com/sanjaytechd/DementiaPrediction
 
 Technical Skills:
 Programming: Python, SQL, C, Java
