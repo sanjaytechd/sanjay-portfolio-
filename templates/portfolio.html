@@ -51,7 +51,7 @@
           <a href="{{ url_for('static', filename='resume/Sanjay_GENAI_Engineer.pdf') }}" download style="background: linear-gradient(135deg, #fff 0%, #f0f0ff 100%); color: #667eea; padding: 16px 36px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 1.05rem; transition: all 0.3s ease; border: 2px solid transparent; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.15);">
             <i class="fas fa-download"></i> Download Resume
           </a>
-          <a href="#projects" style="background: rgba(255,255,255,0.2); color: white; padding: 16px 36px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 1.05rem; transition: all 0.3s ease; border: 2px solid rgba(255,255,255,0.4); display: inline-flex; align-items: center; gap: 10px; backdrop-filter: blur(10px);">
+          <a href="#ai-projects" style="background: rgba(255,255,255,0.2); color: white; padding: 16px 36px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 1.05rem; transition: all 0.3s ease; border: 2px solid rgba(255,255,255,0.4); display: inline-flex; align-items: center; gap: 10px; backdrop-filter: blur(10px);">
             Explore My Work <i class="fas fa-arrow-right"></i>
           </a>
         </div>
@@ -152,7 +152,7 @@
                 <div class="about-client-grid">
                   <div class="about-client-card"><span class="about-client-index">01</span><img src="{{ url_for('static', filename='images/TE_connectivity.png') }}" alt="TE Connectivity logo"><div><strong>TE Connectivity</strong><span>T.E. Virtual Assistant</span><ul class="about-client-points"><li>Built GenAI/RAG-based enterprise applications.</li><li>Integrated Product Data APIs with enterprise knowledge sources.</li><li>Enabled natural-language search across APIs, documents, FAQs, and product data.</li></ul></div><span class="about-client-period">MAY 2026 - PRESENT</span></div>
                   <div class="about-client-card"><span class="about-client-index">02</span><img src="{{ url_for('static', filename='images/infosys.png') }}" alt="Infosys logo"><div><strong>Infosys</strong><span>Agentic AI System and RAG Pipeline</span><ul class="about-client-points"><li>Built a production multi-agent system with 8+ agents for 300K+ users.</li><li>Processed 500+ enterprise documents through an optimized RAG pipeline.</li><li>Reduced retrieval latency by 85% while handling 1,000+ daily queries.</li></ul></div><span class="about-client-period">SEP 2024 - APR 2026</span></div>
-                  <div class="about-client-card"><span class="about-client-index">03</span><img src="{{ url_for('static', filename='images/Flipkart.png') }}" alt="Flipkart logo"><div><strong>Flipkart</strong><span>Conversational Analytics Platform</span><ul class="about-client-points"><li>Built an AI-powered conversational data analytics platform.</li><li>Generated KPIs, charts, trends, and narratives from structured datasets.</li><li>Enabled natural-language reports across 10,000+ Excel files.</li></ul></div><span class="about-client-period">OCT 2025 - DEC 2025</span></div>
+                  <div class="about-client-card"><span class="about-client-index">03</span><img src="{{ url_for('static', filename='images/flipkart.png') }}" alt="Flipkart logo"><div><strong>Flipkart</strong><span>Conversational Analytics Platform</span><ul class="about-client-points"><li>Built an AI-powered conversational data analytics platform.</li><li>Generated KPIs, charts, trends, and narratives from structured datasets.</li><li>Enabled natural-language reports across 10,000+ Excel files.</li></ul></div><span class="about-client-period">OCT 2025 - DEC 2025</span></div>
                 </div>
               </div>
             </article>
@@ -162,12 +162,13 @@
     </section>
 
         <!-- AI Projects Section -->
-        <section id="projects" class="py-5">
+          <section id="ai-projects" class="py-5 project-section project-section--ai">
             <div class="container">
+            <p class="project-section-kicker">Intelligence systems</p>
               <h2 class="section-title">AI Projects</h2>
               <div class="row g-4">
                 <div class="col-md-4">
-                  <div class="card">
+                  <div class="card project-card">
                    <img src="{{ url_for('static', filename='images/doc_inti.png') }}" class="card-img-top project-image project-image--document" alt="Document Intelligence platform" />
                     <div class="card-body">
                       <h5 class="card-title">Document Intelligence platform</h5>
@@ -191,7 +192,7 @@
                   </div>
                 </div>
                 <div class="col-md-4">
-                  <div class="card">
+                  <div class="card project-card">
                     <img src="{{ url_for('static', filename='images/excel.png') }}" class="card-img-top project-image project-image--analytics" alt="Conversational Data Analytics platform" />
                     <div class="card-body">
                       <h5 class="card-title">AI-Powered Conversational Data Analytics Platform</h5>
@@ -213,7 +214,7 @@
                   </div>
                 </div>
                 <div class="col-md-4">
-                  <div class="card">
+                  <div class="card project-card">
                     <img src="{{ url_for('static', filename='images/inci.png') }}" class="card-img-top project-image project-image--incident" alt="Incident Management AI Assistant" />
                     <div class="card-body">
                       <h5 class="card-title">Multi-Agent Incident Management AI Assistant</h5>
@@ -241,12 +242,13 @@
           </section>
 
             <!-- DevOps Projects Section -->
-    <section id="projects" class="py-5">
+    <section id="devops-projects" class="py-5 project-section project-section--devops">
         <div class="container">
+          <p class="project-section-kicker">Delivery infrastructure</p>
           <h2 class="section-title">DevOps Projects</h2>
           <div class="row g-4">
             <div class="col-md-4">
-              <div class="card">
+              <div class="card project-card">
                <img src="{{ url_for('static', filename='images/devops.png') }}" class="card-img-top project-image project-image--finance" alt="Finance me CI/CD project" />
                 <div class="card-body">
                   <h5 class="card-title">Finance me</h5>
@@ -268,7 +270,7 @@
               </div>
             </div>
             <div class="col-md-4">
-              <div class="card">
+              <div class="card project-card">
                 <img src="{{ url_for('static', filename='images/medical-service.png') }}" class="card-img-top project-image project-image--medicure" alt="Medicure healthcare deployment project" />
                 <div class="card-body">
                   <h5 class="card-title">Medicure</h5>
@@ -290,7 +292,7 @@
               </div>
             </div>
             <div class="col-md-4">
-              <div class="card">
+              <div class="card project-card">
                 <img src="{{ url_for('static', filename='images/insurance.png') }}" class="card-img-top project-image project-image--insure" alt="Insure me deployment project" />
                 <div class="card-body">
                   <h5 class="card-title">Insure me</h5>

@@ -817,6 +817,74 @@ body.dark-mode .hero-shell > .container > div:last-of-type a {
   transform: scale(1.04);
 }
 
+.project-section {
+  position: relative;
+}
+
+.project-section--devops {
+  margin-top: 1rem;
+  border-top: 1px solid rgba(23, 35, 61, 0.08);
+}
+
+.project-section-kicker {
+  margin: 0 auto 0.65rem;
+  color: var(--coral);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-radius: 20px !important;
+}
+
+.project-card .card-img-top {
+  height: 205px;
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.project-card .card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 205px;
+}
+
+.project-card .card-title {
+  min-height: 2.9rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.08rem;
+  line-height: 1.35;
+}
+
+.project-card .card-text {
+  flex: 1;
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+
+.project-card .dropdown-btn {
+  margin-top: 1rem;
+}
+
+.project-card .dropdown-content {
+  width: 100%;
+}
+
+.project-section--devops .project-card .card-img-top {
+  filter: saturate(0.78) contrast(1.06);
+}
+
+.project-section--devops .project-card:hover .card-img-top {
+  filter: saturate(1) contrast(1.06);
+}
+
 .project-image--document { background: linear-gradient(135deg, #123c52, #0aa6a6); }
 .project-image--analytics { background: linear-gradient(135deg, #26335f, #7652b8); }
 .project-image--incident { background: linear-gradient(135deg, #42233f, #d95e72); }
@@ -1541,6 +1609,14 @@ body.dark-mode #skills ul {
   border-color: rgba(255, 255, 255, 0.1) !important;
 }
 
+body.dark-mode .project-section--devops {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .project-section-kicker {
+  color: #f59b7d;
+}
+
 body.dark-mode .skills-panel {
   background: rgba(27, 40, 64, 0.9);
   border-color: rgba(255, 255, 255, 0.1);
@@ -1651,20 +1727,71 @@ body.dark-mode .dropdown-content {
     grid-template-columns: 1fr;
   }
 
+  .certifications-layout {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
   .certification-feature,
   .certification-list-panel {
     min-height: 0;
+    padding: 1.35rem;
   }
 
   .card-img-top {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    height: 165px;
+    position: static;
+    display: block;
+    width: 100%;
+    height: 150px;
+    padding: 1rem;
+  }
+
+  .project-card .card-img-top {
+    height: 150px;
+    padding: 1rem;
+  }
+
+  .project-card .card-body {
+    min-height: 0;
+    padding: 1.25rem;
+  }
+
+  .project-card .card-title {
+    min-height: 0;
   }
 
   .card-body {
     padding: 1.25rem;
+  }
+
+  .certification-mark {
+    width: 46px;
+    height: 46px;
+    margin-bottom: 1.35rem;
+  }
+
+  .certification-feature h3,
+  .certification-list-panel h3 {
+    font-size: 1.55rem;
+  }
+
+  .certification-stack {
+    margin-top: 1.2rem;
+  }
+
+  .certification-meta {
+    margin-top: 1.35rem;
+  }
+
+  .certification-list {
+    margin-top: 0.75rem;
+  }
+
+  .certification-list li {
+    grid-template-columns: 1.8rem 1fr auto;
+    gap: 0.55rem;
+    padding: 0.8rem 0;
+    font-size: 0.82rem;
   }
 
   #gemini-chat-widget {
