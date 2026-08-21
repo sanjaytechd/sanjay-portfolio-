@@ -1,4 +1,10 @@
- function toggleMode() {
+function trackAnalyticsEvent(eventName, eventParams = {}) {
+  if (typeof window.gtag === 'function') {
+    window.gtag('event', eventName, eventParams);
+  }
+}
+
+function toggleMode() {
         // Toggle dark mode
         document.body.classList.toggle("dark-mode");
 
@@ -16,6 +22,9 @@
 function toggleDropdown(dropdownId) {
   const dropdown = document.getElementById(dropdownId);
   dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+  if (dropdown.style.display === 'block') {
+    trackAnalyticsEvent('project_details_opened', { project_id: dropdownId });
+  }
 }
 
 function toggleChatBox() {
@@ -24,6 +33,7 @@ function toggleChatBox() {
   if (chatBox.style.display === 'none') {
     chatBox.style.display = 'flex';
     openBtn.style.display = 'none';
+    trackAnalyticsEvent('chat_opened');
     setTimeout(() => {
       document.getElementById('chat-input').focus();
     }, 200);
@@ -38,6 +48,7 @@ async function sendMessage() {
   const msg = input.value.trim();
   if (!msg) return;
   appendMessage('You', msg, true);
+  trackAnalyticsEvent('chat_message_sent');
   input.value = '';
   appendMessage('Santy', '<span style="color:#aaa;">Typing...</span>', false, true);
   const res = await fetch('https://sanjay-portfolio-jl91.onrender.com/chat', {
@@ -176,42 +187,24 @@ document.addEventListener('DOMContentLoaded', function () {
       sendMessage();
     }
   });
-});
 
-window.addEventListener('load', function () {
-  const modalElement = document.getElementById('userInfoModal');
-  const nameInput = document.getElementById('name');
-  const contactInput = document.getElementById('contactInfo');
-  const form = document.getElementById('user-info-form');
-
-  if (!modalElement || !form || !nameInput || !contactInput) return;
-
-  const shown = localStorage.getItem('userInfoShown');
-  if (!shown) {
-    const modal = new bootstrap.Modal(modalElement);
-    modal.show();
-    localStorage.setItem('userInfoShown', 'true');
-  }
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    const name = nameInput.value.trim();
-    const contact = contactInput.value.trim();
-
-    // Close modal immediately
-    bootstrap.Modal.getInstance(modalElement).hide();
-
-    // If nothing is filled, skip sending
-    if (!name && !contact) return;
-
-    // Send data in background
-    fetch('/submit-info', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, contact }),
-    }).catch(err => {
-      console.error('Error sending visitor info:', err);
-    });
+  document.querySelectorAll('a[download]').forEach(link => {
+    link.addEventListener('click', () => trackAnalyticsEvent('resume_download'));
   });
+
+  document.querySelectorAll('a[target="_blank"]').forEach(link => {
+    link.addEventListener('click', () => trackAnalyticsEvent('external_link_clicked', {
+      destination: link.hostname,
+    }));
+  });
+
+  let scrollTracked = false;
+  window.addEventListener('scroll', function () {
+    const scrollDepth = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight;
+    if (!scrollTracked && scrollDepth >= 0.9) {
+      scrollTracked = true;
+      trackAnalyticsEvent('scroll_depth_90');
+    }
+  }, { passive: true });
 });
 

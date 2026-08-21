@@ -1,24 +1,10 @@
 from flask import Flask, request, jsonify, render_template
 import os
-import logging
 from openai import OpenAI
 from flask_cors import CORS
-from flask_mail import Mail, Message
 
 app = Flask(__name__)
 CORS(app)
-logger = logging.getLogger(__name__)
-
-app.config.update(
-    MAIL_SERVER='smtp.gmail.com',
-    MAIL_PORT=465,
-    MAIL_USE_TLS=False,
-    MAIL_USE_SSL=True,
-    MAIL_USERNAME='sanjaynbe2303@gmail.com',
-    MAIL_PASSWORD=os.environ.get("EMAIL_APP_PASSWORD"),
-)
-
-mail = Mail(app)
 
 groq_client = OpenAI(
     api_key=os.environ.get("GROQ_API_KEY"),
@@ -115,40 +101,16 @@ Use headings, short paragraphs, and <ul>/<li> lists for explanations that are no
 
 @app.route("/", methods=["GET"])
 def home():
-    return render_template("portfolio.html")
+    return render_template(
+        "portfolio.html",
+        ga_measurement_id=os.environ.get("GA_MEASUREMENT_ID"),
+    )
 
 @app.route("/chat", methods=["POST"])
 def chat():
     user_input = request.json.get("message", "")
     reply = ask_groq(user_input)
     return jsonify({"reply": reply})
-
-@app.route("/submit-info", methods=["POST"])
-def submit_info():
-    data = request.json
-    name = data.get("name", "").strip()
-    contact = data.get("contact", "").strip()
-
-    if not name and not contact:
-        return jsonify({"message": "Nothing to send"}), 200
-
-    if not app.config.get("MAIL_USERNAME") or not app.config.get("MAIL_PASSWORD"):
-        logger.error("Visitor email is not configured: missing MAIL_USERNAME or EMAIL_APP_PASSWORD")
-        return jsonify({"error": "Visitor email is not configured on the server"}), 503
-
-    message_body = f"New visitor info:\nName: {name}\nContact/Org: {contact}"
-    msg = Message(subject="New Portfolio Visitor Info",
-                  sender="sanjaynbe2303@gmail.com",
-                  recipients=["sanjaynbe2303@gmail.com"],
-                  body=message_body)
-    try:
-        mail.send(msg)
-        return jsonify({"message": "Email sent"}), 200
-    except Exception as e:
-        logger.exception("Unable to send visitor email")
-        return jsonify({"error": "Unable to send visitor email"}), 502
-
-
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))  # Get port from Render or default 5000
