@@ -94,48 +94,68 @@
     <section id="about" class="py-5">
       <div class="container">
         <h2 class="section-title">About Me</h2>
-        <div class="row g-4">
-          <div class="col-md-6">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Who Am I?</h5>
-                <p class="card-text">
-                  I am a passionate data engineer with a keen interest in
-                  building scalable AI solutions.
-                </p>
-                <!-- Styled Button with Down Arrow -->
-                <button class="dropdown-btn" onclick="toggleDropdown('dropdown-1')">
-                  <i class="fas fa-chevron-down"></i>
-                </button>
-                <div id="dropdown-1" class="dropdown-content">
-                  <p><strong> EDUCATION:</strong><br>
-                    Bachelor of Engineering (Computer Science) at <strong>JSSATEB</strong>  2020 - 2024 (CGPA: 8.9/10.0)<br>
-PUC at <strong>RNS Composite PU College</strong> 2018 - 2020 (91.12%)<br>
-Class 10th at <strong>ST.Philomena's Memorial High School</strong> 2018  (93.15%)<br></p>
+        <div class="about-layout">
+          <article class="about-intro">
+            <div class="about-intro-mark"><i class="fas fa-fingerprint"></i></div>
+            <p class="skills-kicker">The short version</p>
+            <h3>Turning complex data into useful intelligence.</h3>
+            <p class="about-lede">
+              I am an Agentic AI Developer and GenAI Engineer focused on building scalable,
+              production-ready systems that help teams search, understand, and act on their data.
+            </p>
+            <div class="about-signature"><span>Sanjay N.</span><i class="fas fa-arrow-up-right-dots"></i></div>
+            <div class="about-education">
+              <div class="about-journey-heading">
+                <div>
+                  <p class="skills-kicker">Foundation</p>
+                  <h3>Education</h3>
+                </div>
+                <i class="fas fa-graduation-cap"></i>
+              </div>
+              <div class="about-timeline">
+                <div class="about-timeline-item">
+                  <span class="about-timeline-dot"></span>
+                  <div><span class="about-timeline-date">2020 - 2024</span><h4>B.E. Computer Science</h4><p>JSSATEB · CGPA 8.9/10.0</p></div>
+                </div>
+                <div class="about-timeline-item">
+                  <span class="about-timeline-dot"></span>
+                  <div><span class="about-timeline-date">2018 - 2020</span><h4>PUC</h4><p>RNS Composite PU College · 91.12%</p></div>
+                </div>
+                <div class="about-timeline-item">
+                  <span class="about-timeline-dot"></span>
+                  <div><span class="about-timeline-date">2018</span><h4>Class 10th</h4><p>ST. Philomena's Memorial High School · 93.15%</p></div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-md-6">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Experience</h5>
-                <p class="card-text">
-                  Currently, Working as Data Scientist(Agentic AI Dev) @ <strong>CAI. </strong><br> 
-                  May 2026 - Present
-                </p>
-                <!-- Styled Button with Down Arrow -->
-                <button class="dropdown-btn" onclick="toggleDropdown('dropdown-2')">
-                  <i class="fas fa-chevron-down"></i>
-                </button>
-                <div id="dropdown-2" class="dropdown-content">
-                  <p><strong>Other Work Experience</strong><br>
-                    Data Engineer (GEN AI) @ <strong>DataSturdy Consulting Private Limited</strong> <br>oct 2025 - Apr 2026<br>
-                    Associate Data Engineer @ <strong>DataSturdy Consulting Private Limited</strong><br>Nov 2024 - Sep 2025
-                </p>
+          </article>
+          <div class="about-details">
+            <article class="about-detail-block">
+              <div class="about-journey-heading">
+                <div>
+                  <p class="skills-kicker">Professional path</p>
+                  <h3>Career</h3>
+                </div>
+                <i class="fas fa-briefcase"></i>
+              </div>
+              <div class="about-timeline">
+                <div class="about-timeline-item about-timeline-item--current">
+                  <span class="about-timeline-dot"></span>
+                  <div class="career-entry"><img src="{{ url_for('static', filename='images/CAI.png') }}" alt="CAI logo"><div><span class="about-timeline-date">May 2026 - Present</span><h4>Data Scientist, Agentic AI</h4><p>CAI</p></div></div>
+                </div>
+                <div class="about-timeline-item">
+                  <span class="about-timeline-dot"></span>
+                  <div class="career-entry"><img src="{{ url_for('static', filename='images/DataSturdy.png') }}" alt="DataSturdy Consulting logo"><div><span class="about-timeline-date">Nov 2024 - Apr 2026</span><h4>Data Engineer, GenAI</h4><p>DataSturdy Consulting</p></div></div>
                 </div>
               </div>
-            </div>
+              <div class="about-client-work">
+                <p class="skills-kicker">Client work</p>
+                <div class="about-client-grid">
+                  <div class="about-client-card"><span class="about-client-index">01</span><img src="{{ url_for('static', filename='images/TE_connectivity.png') }}" alt="TE Connectivity logo"><div><strong>TE Connectivity</strong><span>T.E. Virtual Assistant</span><ul class="about-client-points"><li>Built GenAI/RAG-based enterprise applications.</li><li>Integrated Product Data APIs with enterprise knowledge sources.</li><li>Enabled natural-language search across APIs, documents, FAQs, and product data.</li></ul></div><span class="about-client-period">MAY 2026 - PRESENT</span></div>
+                  <div class="about-client-card"><span class="about-client-index">02</span><img src="{{ url_for('static', filename='images/infosys.png') }}" alt="Infosys logo"><div><strong>Infosys</strong><span>Agentic AI System and RAG Pipeline</span><ul class="about-client-points"><li>Built a production multi-agent system with 8+ agents for 300K+ users.</li><li>Processed 500+ enterprise documents through an optimized RAG pipeline.</li><li>Reduced retrieval latency by 85% while handling 1,000+ daily queries.</li></ul></div><span class="about-client-period">SEP 2024 - APR 2026</span></div>
+                  <div class="about-client-card"><span class="about-client-index">03</span><img src="{{ url_for('static', filename='images/Flipkart.png') }}" alt="Flipkart logo"><div><strong>Flipkart</strong><span>Conversational Analytics Platform</span><ul class="about-client-points"><li>Built an AI-powered conversational data analytics platform.</li><li>Generated KPIs, charts, trends, and narratives from structured datasets.</li><li>Enabled natural-language reports across 10,000+ Excel files.</li></ul></div><span class="about-client-period">OCT 2025 - DEC 2025</span></div>
+                </div>
+              </div>
+            </article>
           </div>
         </div>
       </div>
@@ -336,52 +356,74 @@ Class 10th at <strong>ST.Philomena's Memorial High School</strong> 2018  (93.15%
           </div>
         </div>
       </section>
-        <!-- Certication Section -->
-     <section id="projects" class="py-5">
+        <!-- Certification Section -->
+     <section id="certifications" class="py-5">
         <div class="container">
           <h2 class="section-title">Training and Certifications</h2>
-          <div class="row g-4">
-            <div class="col-md-4">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Devops Training @ STARAGILE</h5>
-                  <p class="card-text">
-                    During my DevOps certification at StarAgile, I gained hands-on experience with AWS services, and tools like Docker, Kubernetes, Jenkins, Terraform, and Ansible. 
-                    I automated CI/CD pipelines and infrastructure, enhancing system efficiency and scalability.
-                  </p>
-                  <!-- <a href="#" class="btn btn-primary">Learn More</a> -->
-                </div>
+          <div class="certifications-layout">
+            <article class="certification-feature">
+              <div class="certification-mark"><i class="fas fa-terminal"></i></div>
+              <p class="skills-kicker">Hands-on training</p>
+              <h3>DevOps from code to cloud.</h3>
+              <p>
+                StarAgile training gave me practical experience with AWS, Docker, Kubernetes,
+                Jenkins, Terraform, and Ansible, turning infrastructure into repeatable delivery workflows.
+              </p>
+              <div class="certification-stack" aria-label="DevOps technologies">
+                <span>AWS</span><span>Docker</span><span>Kubernetes</span><span>Jenkins</span><span>Terraform</span><span>Ansible</span>
               </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Certificates</h5>
-                  <p class="card-text">
-                    <li>Azure AI Fundamentals (AI-900)</li>
-                    <li>Azure AI Engineer Associate (AI-102)</li>
-                    <li>DevOps Fundamentals (IBM)</li>
-                    <li>Docker Essentials (IBM)</li>
-                    <li>Scalable Web Application on Kubernetes</li>
-                  </p>
-                  <!-- <a href="#" class="btn btn-primary">Learn More</a> -->
+              <div class="certification-meta"><span>STARAGILE</span><i class="fas fa-arrow-up-right-dots"></i></div>
+            </article>
+            <div class="certification-list-panel">
+              <div class="certification-list-heading">
+                <div>
+                  <p class="skills-kicker">Credentials</p>
+                  <h3>Proof of practice.</h3>
                 </div>
+                <i class="fas fa-award certification-award"></i>
               </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">AI-ML WorkShop @ ATS Learning Solutions</h5>
-                  <p class="card-text">
-                    Completed ATS Learning Solutions' week-long workshop covering EDA, ML techniques, and algorithms,
-                    culminating in Microsoft AI-900 certification, showcasing proficiency in Azure AI Fundamentals.
-                  </p>
-                </div>
-              </div>
+              <ul class="certification-list">
+                <li><span class="certification-number">01</span><span>Azure AI Engineer Associate <small>AI-102</small></span><i class="fas fa-check"></i></li>
+                <li><span class="certification-number">02</span><span>Azure AI Fundamentals <small>AI-900</small></span><i class="fas fa-check"></i></li>
+                <li><span class="certification-number">03</span><span>DevOps Fundamentals <small>IBM</small></span><i class="fas fa-check"></i></li>
+                <li><span class="certification-number">04</span><span>Docker Essentials <small>IBM</small></span><i class="fas fa-check"></i></li>
+                <li><span class="certification-number">05</span><span>Scalable Web Applications <small>on Kubernetes</small></span><i class="fas fa-check"></i></li>
+              </ul>
+              <div class="certification-note"><i class="fas fa-sparkles"></i><span>Always learning, always shipping.</span></div>
             </div>
           </div>
         </div>
       </section>
+
+    <!-- Awards and Recognition Section -->
+    <section id="awards" class="py-5">
+      <div class="container">
+        <h2 class="section-title">Awards & Recognition</h2>
+        <div class="awards-grid">
+          <article class="award-card award-card--featured">
+            <div class="award-card-top"><span class="award-number">01</span><div class="award-icon"><i class="fas fa-star"></i></div></div>
+            <p class="skills-kicker">TE Connectivity</p>
+            <h3>Values Star Award</h3>
+            <p>Recognized for demonstrating the values that shape meaningful work and collaboration.</p>
+            <span class="award-date">AUG 2026</span>
+          </article>
+          <article class="award-card">
+            <div class="award-card-top"><span class="award-number">02</span><div class="award-icon"><i class="fas fa-chart-line"></i></div></div>
+            <p class="skills-kicker">DataSturdy Consulting</p>
+            <h3>Best Performer Quarterly Award</h3>
+            <p>Recognized for strong performance, ownership, and consistent delivery.</p>
+            <span class="award-date">DEC 2025</span>
+          </article>
+          <article class="award-card">
+            <div class="award-card-top"><span class="award-number">03</span><div class="award-icon"><i class="fas fa-users"></i></div></div>
+            <p class="skills-kicker">DataSturdy Consulting</p>
+            <h3>Team Award</h3>
+            <p>Recognized for contributing to collaborative delivery and shared team success.</p>
+            <span class="award-date">FEB 2025</span>
+          </article>
+        </div>
+      </div>
+    </section>
   
     <!-- Contact Section -->
     <section id="contact" class="py-5 bg-dark text-white">
@@ -404,7 +446,7 @@ Class 10th at <strong>ST.Philomena's Memorial High School</strong> 2018  (93.15%
 <div id="gemini-chat-widget" style="position:fixed;bottom:30px;right:30px;z-index:9999;">
   <div id="chat-box" style="display:none;width:340px;height:440px;backdrop-filter:blur(12px);background:rgba(255,255,255,0.25);border-radius:18px;box-shadow:0 8px 32px 0 rgba(31,38,135,0.37);overflow:hidden;flex-direction:column;transition:box-shadow 0.3s;">
     <div style="background:rgba(0,123,255,0.9);color:#fff;padding:14px 18px;display:flex;align-items:center;gap:10px;">
-      <img src="{{ url_for('static', filename='images/bot.png') }}" alt="Santy" class="chat-avatar">
+      <div class="chat-avatar" aria-hidden="true"><span>S</span></div>
       <span class="chat-title"><strong>Santy</strong><small>AI portfolio guide</small></span>
       <span style="font-size:1.3rem;cursor:pointer;opacity:0.7;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7" onclick="toggleChatBox()">&times;</span>
     </div>

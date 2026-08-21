@@ -116,17 +116,12 @@ function appendMessage(sender, text, isUser=false, isTyping=false) {
   msgDiv.style.justifyContent = isUser ? 'flex-end' : 'flex-start';
   msgDiv.style.gap = '8px';
 
-  // Add avatar for bot (before the bubble)
+  // Add a branded marker for Santy messages.
   if (!isUser) {
-    const avatar = document.createElement('img');
-    avatar.src = '/static/images/bot.png';
-    avatar.alt = 'Santy';
-    avatar.style.width = '28px';
-    avatar.style.height = '28px';
-    avatar.style.borderRadius = '50%';
-    avatar.style.background = '#fff';
-    avatar.style.border = '1.5px solid #007bff';
-    avatar.style.flexShrink = '0';
+    const avatar = document.createElement('div');
+    avatar.className = 'chat-message-avatar';
+    avatar.setAttribute('aria-hidden', 'true');
+    avatar.textContent = 'S';
     msgDiv.appendChild(avatar);
   }
 
