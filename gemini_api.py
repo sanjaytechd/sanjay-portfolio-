@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 import os
+import json
 from openai import OpenAI
 from flask_cors import CORS
 
@@ -13,6 +14,7 @@ groq_client = OpenAI(
 PORTFOLIO_CONTEXT ='''You are Santy, an expert assistant representing Sanjay N., an Azure-certified GEN AI Engineer with hands-on experience building scalable multi-agent LLM systems for enterprise use. You have access to his complete professional background, technical expertise, project portfolio, and accomplishments as of July 13, 2026. Provide helpful, natural, and conversational responses to questions about his profile.
 
 Personal Information:
+Exact name spelling: Sanjay. Always spell the portfolio owner's name exactly as "Sanjay". "Santy" is the assistant's name, not the portfolio owner's name.
 Name: Sanjay N.
 Email: sanjaynbe2303@gmail.com
 Phone: +91-8951427835
@@ -41,11 +43,11 @@ Flipkart: AI-Powered Data Insight and Conversational Analytics Platform
 Associate Data Engineer (GEN AI) @ DataSturdy Consulting (Nov 2024 - Sep 2025)
 Infosys: Agentic AI System and RAG Pipeline
 - Developed production-grade multi-agent system (8+ agents) serving 300,000+ users
-- Built and optimized RAG pipeline processing 500+ enterprise documents with 85% latency reduction
+- Built and optimized RAG pipeline processing 500+ enterprise documents with 85 percent latency reduction
 - Handled 1,000+ queries per day, reducing manual dependency and increasing productivity
 
 Tata Power: OCR Meter Reading and Transformer Oil Image Analytics
-- Improved district-scale OCR pipeline, driving accuracy improvements from 90% toward 95%
+- Improved district-scale OCR pipeline, driving accuracy improvements from 90 percent toward 95 percent
 - Evaluated transformer oil health prediction models and identified limitations of image-only approaches
 
 Education:
@@ -67,13 +69,14 @@ DevOps: AWS (EC2, S3, VPC, IAM, AMI, EBS, CloudWatch), Linux, Git, GitHub, Jenki
 Frameworks: FastAPI, Flask, LangChain, Scrapy, Elasticsearch
 
 Certifications:
-- Microsoft Certified: Azure AI Engineer Associate (AI-102)
-- Microsoft Certified: Azure Data Scientist Associate (DP-100)
-- DevOps Fundamentals, Docker Essentials, Scalable Web Applications on Kubernetes (IBM)
+1. Microsoft Certified: Azure AI Engineer Associate : AI-102
+02. Microsoft Certified: Azure AI Fundamentals : AI-900
+03. Microsoft Certified: Azure Data Scientist Associate : DP-100
+04. Microsoft Certified: Fabric Analytics Engineer Associate : DP-600
 
 Guidelines for Responses:
 1. Respond in a natural, conversational flow - be friendly and approachable
-2. Use "he", "his", "him" when referring to Sanjay in queries about him
+2. Always spell his name exactly as "Sanjay"; never use a spelling variant. Use "he", "his", "him" when referring to Sanjay in queries about him
 3. Use his name naturally when greeting or in opening sentences
 4. Keep responses concise but informative - avoid unnecessary verbosity
 5. Be factually accurate based on his profile information
@@ -87,17 +90,25 @@ def ask_groq(prompt):
 Use an HTML <table> whenever the answer contains two or more items with the same fields, comparisons, timelines, education records, jobs, projects, skills, certifications, tools, or other structured data. Do not use a paragraph or bullet list for data that is naturally tabular.
 Every table MUST include <thead>, one header row with descriptive <th> cells, and <tbody> with <td> cells. Do not use Markdown table syntax.
 Use headings, short paragraphs, and <ul>/<li> lists for explanations that are not naturally tabular. Use <strong>, <em>, <a>, and <br> where helpful. Keep answers concise and accurate."""
+    response_rules = """Return ONLY valid JSON with exactly these keys:
+{"answer":"HTML answer for the user's question","suggestions":["user-perspective question 1","user-perspective question 2","user-perspective question 3"]}
+The answer must contain clean readable HTML and the suggestions must be exactly three concise, natural follow-up questions written from the user's perspective. Make the suggestions dynamically relevant to the user's question and the answer. Do not include Markdown fences or any text outside the JSON object."""
     try:
         response = groq_client.chat.completions.create(
             messages=[
-                {"role": "system", "content": f"{PORTFOLIO_CONTEXT}\n\nFormatting rules:\n{formatting_rules}"},
+                {"role": "system", "content": f"{PORTFOLIO_CONTEXT}\n\nFormatting rules:\n{formatting_rules}\n\nResponse format:\n{response_rules}"},
                 {"role": "user", "content": prompt},
             ],
             model="openai/gpt-oss-20b",
+            response_format={"type": "json_object"},
         )
-        return response.choices[0].message.content
+        result = json.loads(response.choices[0].message.content)
+        suggestions = result.get("suggestions", [])
+        if not isinstance(suggestions, list) or len(suggestions) != 3 or not all(isinstance(item, str) for item in suggestions):
+            raise ValueError("The model did not return exactly three suggestions")
+        return {"answer": result.get("answer", ""), "suggestions": suggestions}
     except Exception as error:
-        return f"Error: {error}"
+        return {"answer": f"<p>Error: {error}</p>", "suggestions": []}
 
 @app.route("/", methods=["GET"])
 def home():
@@ -109,8 +120,7 @@ def home():
 @app.route("/chat", methods=["POST"])
 def chat():
     user_input = request.json.get("message", "")
-    reply = ask_groq(user_input)
-    return jsonify({"reply": reply})
+    return jsonify(ask_groq(user_input))
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))  # Get port from Render or default 5000

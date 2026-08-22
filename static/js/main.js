@@ -47,11 +47,12 @@ async function sendMessage() {
   const input = document.getElementById('chat-input');
   const msg = input.value.trim();
   if (!msg) return;
+  document.querySelectorAll('#chat-messages .chat-suggestions').forEach(suggestions => suggestions.remove());
   appendMessage('You', msg, true);
   trackAnalyticsEvent('chat_message_sent');
   input.value = '';
   appendMessage('Santy', '<span style="color:#aaa;">Typing...</span>', false, true);
-  const res = await fetch('https://sanjay-portfolio-jl91.onrender.com/chat', {
+  const res = await fetch('/chat', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({message: msg})
@@ -62,10 +63,10 @@ async function sendMessage() {
   chatMessages.lastChild.remove();
   
   // Add inline styles to links in the response for better visibility
-  let styledReply = renderMarkdownTables(data.reply);
+  let styledReply = renderMarkdownTables(data.answer || data.reply || '');
   styledReply = wrapHtmlTables(styledReply);
   styledReply = styledReply.replace(/<a\s+href=/g, '<a style="color: #0056cc; font-weight: 700; text-decoration: underline;" href=');
-  appendMessage('Santy', styledReply, false);
+  appendMessage('Santy', styledReply, false, false, data.suggestions || []);
 }
 
 function wrapHtmlTables(reply) {
@@ -116,7 +117,7 @@ function renderMarkdownTables(reply) {
   return rendered.join('\n');
 }
 
-function appendMessage(sender, text, isUser=false, isTyping=false) {
+function appendMessage(sender, text, isUser=false, isTyping=false, suggestions=[]) {
   const chatMessages = document.getElementById('chat-messages');
   const msgDiv = document.createElement('div');
   msgDiv.style.display = 'flex';
@@ -150,6 +151,13 @@ function appendMessage(sender, text, isUser=false, isTyping=false) {
   bubble.style.boxShadow = isUser ? '0 2px 8px rgba(0,123,255,0.15)' : '0 2px 8px rgba(0,0,0,0.08)';
   bubble.style.wordWrap = 'break-word';
   bubble.style.fontWeight = isTyping ? '400' : '500';
+
+  const botContent = document.createElement('div');
+  botContent.style.width = isUser ? '100%' : '70%';
+  botContent.style.minWidth = '0';
+  if (!isUser) {
+    botContent.appendChild(bubble);
+  }
   
   // Style HTML elements within the bubble
   const styleTag = document.createElement('style');
@@ -162,6 +170,9 @@ function appendMessage(sender, text, isUser=false, isTyping=false) {
     #chat-messages br { display: block; content: ''; }
     #chat-messages { min-width: 0; overflow-x: hidden; }
     #chat-messages .chat-reply-content { width: 100%; min-width: 0; overflow: visible; }
+    #chat-messages .chat-reply-content h1,
+    #chat-messages .chat-reply-content h2,
+    #chat-messages .chat-reply-content h3 { margin: 4px 0 7px; font-size: 1rem; line-height: 1.25; }
     #chat-messages .chat-table-wrap { display: block; width: 100%; max-width: 100%; min-width: 0; overflow-x: auto; overflow-y: hidden; margin: 10px 0; }
     #chat-messages table { width: max-content; min-width: 100%; border-collapse: collapse; font-size: 0.92em; }
     #chat-messages th, #chat-messages td { border: 1px solid rgba(23, 35, 61, 0.2); padding: 7px 8px; text-align: left; vertical-align: top; white-space: nowrap; }
@@ -172,7 +183,31 @@ function appendMessage(sender, text, isUser=false, isTyping=false) {
     document.head.appendChild(styleTag);
   }
 
-  msgDiv.appendChild(bubble);
+  if (isUser) {
+    msgDiv.appendChild(bubble);
+  }
+
+  if (!isUser && !isTyping && suggestions.length === 3) {
+    const suggestionList = document.createElement('div');
+    suggestionList.className = 'chat-suggestions';
+    suggestions.forEach(suggestion => {
+      const suggestionButton = document.createElement('button');
+      suggestionButton.type = 'button';
+      suggestionButton.className = 'chat-suggestion';
+      suggestionButton.textContent = suggestion;
+      suggestionButton.addEventListener('click', () => {
+        document.getElementById('chat-input').value = suggestion;
+        sendMessage();
+      });
+      suggestionList.appendChild(suggestionButton);
+    });
+    botContent.appendChild(suggestionList);
+  }
+
+  if (!isUser) {
+    msgDiv.appendChild(botContent);
+  }
+
   chatMessages.appendChild(msgDiv);
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }

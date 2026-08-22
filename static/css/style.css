@@ -1462,10 +1462,42 @@ body.dark-mode .hero-shell > .container > div:last-of-type a {
   font-weight: 700;
 }
 
+#gemini-chat-widget .chat-suggestions {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+#gemini-chat-widget .chat-suggestion {
+  padding: 0.55rem 0.7rem;
+  border: 1px solid rgba(10, 166, 166, 0.25);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.72);
+  color: #087f92;
+  cursor: pointer;
+  font-size: 0.76rem;
+  line-height: 1.35;
+  text-align: left;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+#gemini-chat-widget .chat-suggestion:hover {
+  border-color: var(--cyan);
+  background: rgba(10, 166, 166, 0.1);
+  transform: translateX(2px);
+}
+
 body.dark-mode #gemini-chat-widget .chat-bubble--bot {
   border-color: rgba(255, 255, 255, 0.1) !important;
   background: #243653 !important;
   color: #edf3fb !important;
+}
+
+body.dark-mode #gemini-chat-widget .chat-suggestion {
+  border-color: rgba(131, 229, 220, 0.3);
+  background: rgba(10, 166, 166, 0.12);
+  color: #83e5dc;
 }
 
 #gemini-chat-widget #chat-box > div:last-child {
