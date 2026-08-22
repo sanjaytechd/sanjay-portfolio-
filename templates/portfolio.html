@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Professional Portfolio - Sanjay N</title>
     {% if ga_measurement_id %}
-    <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_measurement_id }}"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', '{{ ga_measurement_id }}');
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', '{{ ga_measurement_id }}');
     </script>
     {% endif %}
     <!-- Bootstrap CSS -->
@@ -160,9 +160,9 @@
               <div class="about-client-work">
                 <p class="skills-kicker">Client work</p>
                 <div class="about-client-grid">
-                  <div class="about-client-card"><span class="about-client-index">01</span><img src="{{ url_for('static', filename='images/TE_connectivity.png') }}" alt="TE Connectivity logo"><div><strong>TE Connectivity</strong><span>T.E. Virtual Assistant</span><ul class="about-client-points"><li>Built GenAI/RAG-based enterprise applications.</li><li>Integrated Product Data APIs with enterprise knowledge sources.</li><li>Enabled natural-language search across APIs, documents, FAQs, and product data.</li></ul></div><span class="about-client-period">MAY 2026 - PRESENT</span></div>
-                  <div class="about-client-card"><span class="about-client-index">02</span><img src="{{ url_for('static', filename='images/infosys.png') }}" alt="Infosys logo"><div><strong>Infosys</strong><span>Agentic AI System and RAG Pipeline</span><ul class="about-client-points"><li>Built a production multi-agent system with 8+ agents for 300K+ users.</li><li>Processed 500+ enterprise documents through an optimized RAG pipeline.</li><li>Reduced retrieval latency by 85% while handling 1,000+ daily queries.</li></ul></div><span class="about-client-period">SEP 2024 - APR 2026</span></div>
-                  <div class="about-client-card"><span class="about-client-index">03</span><img src="{{ url_for('static', filename='images/flipkart.png') }}" alt="Flipkart logo"><div><strong>Flipkart</strong><span>Conversational Analytics Platform</span><ul class="about-client-points"><li>Built an AI-powered conversational data analytics platform.</li><li>Generated KPIs, charts, trends, and narratives from structured datasets.</li><li>Enabled natural-language reports across 10,000+ Excel files.</li></ul></div><span class="about-client-period">OCT 2025 - DEC 2025</span></div>
+                  <div class="about-client-card"><span class="about-client-index">01</span><img src="{{ url_for('static', filename='images/TE_connectivity.png') }}" alt="TE Connectivity logo"><div><strong>TE Connectivity</strong><span>T.E. Virtual Assistant</span><div class="about-client-metrics"><span>GenAI / RAG</span><span>Product Data APIs</span><span>Under 4s API queries</span></div></div><span class="about-client-period">MAY 2026 - PRESENT</span></div>
+                  <div class="about-client-card"><span class="about-client-index">02</span><img src="{{ url_for('static', filename='images/infosys.png') }}" alt="Infosys logo"><div><strong>Infosys</strong><span>Agentic AI System and RAG Pipeline</span><div class="about-client-metrics"><span>300K+ users</span><span>8+ agents</span><span>500+ documents</span><span>85% less latency</span><span>1,000+ daily queries</span></div></div><span class="about-client-period">SEP 2024 - APR 2026</span></div>
+                  <div class="about-client-card"><span class="about-client-index">03</span><img src="{{ url_for('static', filename='images/flipkart.png') }}" alt="Flipkart logo"><div><strong>Flipkart</strong><span>Conversational Analytics Platform</span><div class="about-client-metrics"><span>10,000+ Excel files</span><span>Automated KPIs</span><span>Charts and narratives</span></div></div><span class="about-client-period">OCT 2025 - DEC 2025</span></div>
                 </div>
               </div>
             </article>
@@ -346,24 +346,13 @@
                 </div>
                 <div class="skill-group">
                   <h4><i class="fas fa-brain"></i> AI & Data</h4>
-                  <div class="skill-tags"><span>LLMs</span><span>LangGraph</span><span>CrewAI</span><span>AutoGen</span><span>OpenAI</span><span>Azure AI</span><span>Elasticsearch</span></div>
+                  <div class="skill-tags"><span>LLMs</span><span>LangGraph</span><span>LangChain</span><span>CrewAI</span><span>AutoGen</span><span>OpenAI</span><span>Azure OpenAI</span><span>Amazon Bedrock</span><span>Azure AI Services</span><span>Elasticsearch</span></div>
                 </div>
                 <div class="skill-group">
                   <h4><i class="fas fa-cloud"></i> Cloud & Delivery</h4>
-                  <div class="skill-tags"><span>AWS</span><span>Docker</span><span>Kubernetes</span><span>Jenkins</span><span>Terraform</span><span>Prometheus</span><span>Grafana</span></div>
+                  <div class="skill-tags"><span>AWS</span><span>Azure</span><span>Git</span><span>GitHub</span><span>Docker</span><span>Kubernetes</span><span>Jenkins</span><span>Terraform</span><span>Prometheus</span><span>Grafana</span></div>
                 </div>
               </div>
-            </div>
-            <div class="skills-panel proficiency-panel">
-              <p class="skills-kicker">Core strengths</p>
-              <h3>Focused where it matters.</h3>
-              <div class="proficiency-list">
-                <div class="proficiency-item"><div><span>Python & backend systems</span><strong>95%</strong></div><div class="proficiency-track"><span style="width: 95%"></span></div></div>
-                <div class="proficiency-item"><div><span>Agentic AI & LLM applications</span><strong>90%</strong></div><div class="proficiency-track"><span style="width: 90%"></span></div></div>
-                <div class="proficiency-item"><div><span>Data engineering & SQL</span><strong>85%</strong></div><div class="proficiency-track"><span style="width: 85%"></span></div></div>
-                <div class="proficiency-item"><div><span>Cloud & DevOps delivery</span><strong>90%</strong></div><div class="proficiency-track"><span style="width: 90%"></span></div></div>
-              </div>
-              <div class="skills-note"><i class="fas fa-arrow-up-right-dots"></i><span>From prototype to dependable production workflow.</span></div>
             </div>
           </div>
         </div>
@@ -397,9 +386,8 @@
               <ul class="certification-list">
                 <li><span class="certification-number">01</span><span>Azure AI Engineer Associate <small>AI-102</small></span><i class="fas fa-check"></i></li>
                 <li><span class="certification-number">02</span><span>Azure AI Fundamentals <small>AI-900</small></span><i class="fas fa-check"></i></li>
-                <li><span class="certification-number">03</span><span>DevOps Fundamentals <small>IBM</small></span><i class="fas fa-check"></i></li>
-                <li><span class="certification-number">04</span><span>Docker Essentials <small>IBM</small></span><i class="fas fa-check"></i></li>
-                <li><span class="certification-number">05</span><span>Scalable Web Applications <small>on Kubernetes</small></span><i class="fas fa-check"></i></li>
+                <li><span class="certification-number">03</span><span>Microsoft Certified: Azure Data Scientist Associate <small>DP-100</small></span><i class="fas fa-check"></i></li>
+                <li><span class="certification-number">04</span><span>Microsoft Certified: Fabric Analytics Engineer Associate <small>DP-600</small></span><i class="fas fa-check"></i></li>
               </ul>
               <div class="certification-note"><i class="fas fa-sparkles"></i><span>Always learning, always shipping.</span></div>
             </div>
