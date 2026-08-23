@@ -4,6 +4,8 @@ function trackAnalyticsEvent(eventName, eventParams = {}) {
   }
 }
 
+const chatHistory = [];
+
 function toggleMode() {
         // Toggle dark mode
         document.body.classList.toggle("dark-mode");
@@ -26,6 +28,31 @@ function toggleDropdown(dropdownId) {
     trackAnalyticsEvent('project_details_opened', { project_id: dropdownId });
   }
 }
+
+function openArchitecture(trigger) {
+  const modal = document.getElementById('architecture-modal');
+  const image = document.getElementById('architecture-modal-image');
+  const title = document.getElementById('architecture-modal-title');
+  image.src = trigger.dataset.architectureSrc;
+  image.alt = `${trigger.dataset.architectureTitle} architecture diagram`;
+  title.textContent = trigger.dataset.architectureTitle;
+  modal.classList.add('is-open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('architecture-modal-open');
+  modal.querySelector('.architecture-modal-close').focus();
+}
+
+function closeArchitecture() {
+  const modal = document.getElementById('architecture-modal');
+  if (!modal) return;
+  modal.classList.remove('is-open');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('architecture-modal-open');
+}
+
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape') closeArchitecture();
+});
 
 function toggleChatBox() {
   const chatBox = document.getElementById('chat-box');
@@ -55,7 +82,7 @@ async function sendMessage() {
   const res = await fetch('/chat', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({message: msg})
+    body: JSON.stringify({message: msg, history: chatHistory.slice(-3)})
   });
   const data = await res.json();
   // Remove "Typing..." placeholder
@@ -67,6 +94,8 @@ async function sendMessage() {
   styledReply = wrapHtmlTables(styledReply);
   styledReply = styledReply.replace(/<a\s+href=/g, '<a style="color: #0056cc; font-weight: 700; text-decoration: underline;" href=');
   appendMessage('Santy', styledReply, false, false, data.suggestions || []);
+  chatHistory.push({question: msg, response: data.answer || data.reply || ''});
+  chatHistory.splice(0, Math.max(0, chatHistory.length - 3));
 }
 
 function wrapHtmlTables(reply) {
@@ -140,8 +169,8 @@ function appendMessage(sender, text, isUser=false, isTyping=false, suggestions=[
   const bubble = document.createElement('div');
   bubble.className = isUser ? 'chat-bubble chat-bubble--user' : 'chat-bubble chat-bubble--bot';
   bubble.innerHTML = `<div class="chat-reply-content" style="font-size:0.95em; line-height:1.4;">${text}</div>`;
-  bubble.style.width = '70%';
-  bubble.style.maxWidth = '70%';
+  bubble.style.width = isUser ? '70%' : '100%';
+  bubble.style.maxWidth = isUser ? '70%' : '100%';
   bubble.style.minWidth = '0';
   bubble.style.boxSizing = 'border-box';
   bubble.style.padding = '12px 14px';
@@ -153,7 +182,7 @@ function appendMessage(sender, text, isUser=false, isTyping=false, suggestions=[
   bubble.style.fontWeight = isTyping ? '400' : '500';
 
   const botContent = document.createElement('div');
-  botContent.style.width = isUser ? '100%' : '70%';
+  botContent.style.width = isUser ? '100%' : 'calc(100% - 36px)';
   botContent.style.minWidth = '0';
   if (!isUser) {
     botContent.appendChild(bubble);

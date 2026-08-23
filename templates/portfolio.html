@@ -161,7 +161,7 @@
                 <p class="skills-kicker">Client work</p>
                 <div class="about-client-grid">
                   <div class="about-client-card"><span class="about-client-index">01</span><img src="{{ url_for('static', filename='images/TE_connectivity.png') }}" alt="TE Connectivity logo"><div><strong>TE Connectivity</strong><span>T.E. Virtual Assistant</span><div class="about-client-metrics"><span>GenAI / RAG</span><span>Product Data APIs</span><span>Under 4s API queries</span></div></div><span class="about-client-period">MAY 2026 - PRESENT</span></div>
-                  <div class="about-client-card"><span class="about-client-index">02</span><img src="{{ url_for('static', filename='images/infosys.png') }}" alt="Infosys logo"><div><strong>Infosys</strong><span>Agentic AI System and RAG Pipeline</span><div class="about-client-metrics"><span>300K+ users</span><span>8+ agents</span><span>500+ documents</span><span>85% less latency</span><span>1,000+ daily queries</span></div></div><span class="about-client-period">SEP 2024 - APR 2026</span></div>
+                  <div class="about-client-card"><span class="about-client-index">02</span><img src="{{ url_for('static', filename='images/infosys.png') }}" alt="Infosys logo"><div><strong>Infosys</strong><span>Agentic AI System and RAG Pipeline</span><div class="about-client-metrics"><span>300K+ users</span><span>8+ agents</span><span>500+ documents</span><span>85% less latency</span></div></div><span class="about-client-period">SEP 2024 - APR 2026</span></div>
                   <div class="about-client-card"><span class="about-client-index">03</span><img src="{{ url_for('static', filename='images/flipkart.png') }}" alt="Flipkart logo"><div><strong>Flipkart</strong><span>Conversational Analytics Platform</span><div class="about-client-metrics"><span>10,000+ Excel files</span><span>Automated KPIs</span><span>Charts and narratives</span></div></div><span class="about-client-period">OCT 2025 - DEC 2025</span></div>
                 </div>
               </div>
@@ -176,156 +176,69 @@
             <div class="container">
             <p class="project-section-kicker">Intelligence systems</p>
               <h2 class="section-title">AI Projects</h2>
-              <div class="row g-4">
+              <div class="row g-4 ai-project-grid">
                 <div class="col-md-4">
-                  <div class="card project-card">
-                   <img src="{{ url_for('static', filename='images/doc_inti.png') }}" class="card-img-top project-image project-image--document" alt="Document Intelligence platform" />
+                  <article class="card project-card ai-project-card ai-project-card--document">
+                    <div class="project-card-visual">
+                      <span class="project-index">01 / 03</span>
+                      <img src="{{ url_for('static', filename='images/doc_inti.png') }}" class="card-img-top project-image project-image--document" alt="Document Intelligence platform" />
+                      <span class="project-visual-label"><i class="fas fa-file-lines"></i> RAG + SQL</span>
+                    </div>
                     <div class="card-body">
+                      <p class="project-type">Knowledge retrieval system</p>
                       <h5 class="card-title">Document Intelligence platform</h5>
-                      <p class="card-text">A powerful document and data query system that leverages AI agents to extract actionable insights from documents and SQL databases in real time efficiently</p>
-                           <!-- Styled Button with Down Arrow -->
-                <button class="dropdown-btn" onclick="toggleDropdown('dropdown-6')">
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                  <div id="dropdown-6" class="dropdown-content">
-                    <p><strong>Features:</strong><br>
-                      1. Document Analysis: Upload and query PDF, DOCX, PPTX, TXT, and Excel files<br>
-                      2. SQL Database Integration: Analyze data stored in SQL Server databases<br>
-                      3. Vector Search: Semantic search using Elasticsearch with embeddings<br>
-                      4. Multi-Agent System: Specialized agents for document and SQL queries<br>
-                      5. Session Management: Maintain conversation context across multiple queries
-                      <br>
-                      <strong>GitHub Link:</strong> <a href="https://github.com/sanjaytechd/Document_Intelligence_Platform" target="_blank">View on GitHub</a>
-                    </p>
-                  </div>
+                      <p class="card-text">A powerful document and data query system that uses AI agents to extract actionable insights from documents and SQL databases in real time.</p>
+                      <div class="project-tags"><span>Multi-agent</span><span>Elasticsearch</span><span>SQL Server</span></div>
+                      <button class="architecture-trigger" type="button" aria-label="Expand Document Intelligence architecture" data-architecture-title="Document Intelligence platform" data-architecture-src="{{ url_for('static', filename='images/doc_intelligence_arch.png') }}" onclick="openArchitecture(this)"><figure class="architecture-preview"><img src="{{ url_for('static', filename='images/doc_intelligence_arch.png') }}" alt="Document Intelligence architecture diagram" /><figcaption><i class="fas fa-up-right-and-down-left-from-center"></i> Expand architecture</figcaption></figure></button>
+                      <a class="project-github-link" href="https://github.com/sanjaytechd/Document_Intelligence_Platform" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> View on GitHub <i class="fas fa-arrow-up-right-from-square"></i></a>
                     </div>
-                  </div>
+                  </article>
                 </div>
                 <div class="col-md-4">
-                  <div class="card project-card">
-                    <img src="{{ url_for('static', filename='images/excel.png') }}" class="card-img-top project-image project-image--analytics" alt="Conversational Data Analytics platform" />
-                    <div class="card-body">
-                      <h5 class="card-title">AI-Powered Conversational Data Analytics Platform</h5>
-                      <p class="card-text">An end-to-end, no-code AI platform that turns uploaded datasets into instant insights, visualizations, and dashboards </p>
-                <button class="dropdown-btn" onclick="toggleDropdown('dropdown-7')">
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                  <div id="dropdown-7" class="dropdown-content">
-                    <p><strong>Features:</strong><br>
-                    1. No-Code Exploration: Upload CSV/Excel files and query datasets using natural language for instant insights.<br>
-                    2. Agentic GenAI Architecture: Automatically selects analytical methods and executes complex computations.<br>
-                    3. Dynamic Visualizations: Generates real-time charts and reports tailored to specific user questions.<br>
-                    4. Interactive Dashboards: Builds customizable, code-free dashboards automatically.<br>
-                      <br>
-                      <strong>GitHub Link:</strong> <a href="https://github.com/sanjaytechd/AI_Powered_Data_Analytcis_Platform" target="_blank">View on GitHub</a>
-                    </p>
-                  </div>
+                  <article class="card project-card ai-project-card ai-project-card--analytics">
+                    <div class="project-card-visual">
+                      <span class="project-index">02 / 03</span>
+                      <img src="{{ url_for('static', filename='images/excel.png') }}" class="card-img-top project-image project-image--analytics" alt="Conversational Data Analytics platform" />
+                      <span class="project-visual-label"><i class="fas fa-chart-simple"></i> No-code analytics</span>
                     </div>
-                  </div>
+                    <div class="card-body">
+                      <p class="project-type">Natural language data workspace</p>
+                      <h5 class="card-title">Conversational Data Analytics Platform</h5>
+                      <p class="card-text">An end-to-end, no-code AI platform that turns uploaded datasets into instant insights, visualizations, and dashboards.</p>
+                      <div class="project-tags"><span>Agentic GenAI</span><span>Python</span><span>Dynamic charts</span></div>
+                      <button class="architecture-trigger" type="button" aria-label="Expand analytics platform architecture" data-architecture-title="Conversational Data Analytics Platform" data-architecture-src="{{ url_for('static', filename='images/analytics_arch.png') }}" onclick="openArchitecture(this)"><figure class="architecture-preview"><img src="{{ url_for('static', filename='images/analytics_arch.png') }}" alt="Conversational Data Analytics architecture diagram" /><figcaption><i class="fas fa-up-right-and-down-left-from-center"></i> Expand architecture</figcaption></figure></button>
+                      <a class="project-github-link" href="https://github.com/sanjaytechd/AI_Powered_Data_Analytcis_Platform" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> View on GitHub <i class="fas fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                  </article>
                 </div>
                 <div class="col-md-4">
-                  <div class="card project-card">
-                    <img src="{{ url_for('static', filename='images/inci.png') }}" class="card-img-top project-image project-image--incident" alt="Incident Management AI Assistant" />
+                  <article class="card project-card ai-project-card ai-project-card--incident">
+                    <div class="project-card-visual">
+                      <span class="project-index">03 / 03</span>
+                      <img src="{{ url_for('static', filename='images/inci.png') }}" class="card-img-top project-image project-image--incident" alt="Incident Management AI Assistant" />
+                      <span class="project-visual-label"><i class="fas fa-shield-halved"></i> 8+ agents</span>
+                    </div>
                     <div class="card-body">
+                      <p class="project-type">Operational AI assistant</p>
                       <h5 class="card-title">Multi-Agent Incident Management AI Assistant</h5>
-                      <p class="card-text">An intelligent multi-agent system that leverages Langgraph Multi agent system and LLM to provide contextual incident management support.</p>
-                                         <!-- Styled Button with Down Arrow -->
-                <button class="dropdown-btn" onclick="toggleDropdown('dropdown-8')">
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                  <div id="dropdown-8" class="dropdown-content">
-                    <p><strong>Features:</strong><br>
-                   1. Intelligent query routing via a Manager Agent that determines which specialized agent should handle each query<br>
-                   2. MCP Server integration for secure database and search infrastructure connectivity<br>
-                   3. Semantic document retrieval from Elasticsearch using sentence-transformers embeddings<br>
-                   4. Chat history persistence in SQL Server with context-aware responses<br>
-                   5. Process flow tracking that visualizes the multi-agent execution path for transparency<br>
-                      <br>
-                      <strong>GitHub Link:</strong> <a href="https://github.com/sanjaytechd/Incident_Management_System" target="_blank">View on GitHub</a>
-                    </p>
-                  </div>
+                      <p class="card-text">An intelligent multi-agent system that uses LangGraph and LLMs to provide contextual incident management support.</p>
+                      <div class="project-tags"><span>LangGraph</span><span>MCP Server</span><span>Observability</span></div>
+                      <button class="architecture-trigger" type="button" aria-label="Expand incident assistant architecture" data-architecture-title="Multi-Agent Incident Management AI Assistant" data-architecture-src="{{ url_for('static', filename='images/incident_mangement_arch.png') }}" onclick="openArchitecture(this)"><figure class="architecture-preview"><img src="{{ url_for('static', filename='images/incident_mangement_arch.png') }}" alt="Incident Management architecture diagram" /><figcaption><i class="fas fa-up-right-and-down-left-from-center"></i> Expand architecture</figcaption></figure></button>
+                      <a class="project-github-link" href="https://github.com/sanjaytechd/Incident_Management_System" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> View on GitHub <i class="fas fa-arrow-up-right-from-square"></i></a>
                     </div>
-                  </div>
+                  </article>
                 </div>
               </div>
             </div>
           </section>
 
-            <!-- DevOps Projects Section -->
-    <section id="devops-projects" class="py-5 project-section project-section--devops">
-        <div class="container">
-          <p class="project-section-kicker">Delivery infrastructure</p>
-          <h2 class="section-title">DevOps Projects</h2>
-          <div class="row g-4">
-            <div class="col-md-4">
-              <div class="card project-card">
-               <img src="{{ url_for('static', filename='images/devops.png') }}" class="card-img-top project-image project-image--finance" alt="Finance me CI/CD project" />
-                <div class="card-body">
-                  <h5 class="card-title">Finance me</h5>
-                  <p class="card-text">Automated CI/CD pipeline with continuous monitoring for deployment efficiency</p>
-                    <!-- Styled Button with Down Arrow -->
-                <button class="dropdown-btn" onclick="toggleDropdown('dropdown-3')">
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                  <div id="dropdown-3" class="dropdown-content">
-                    <p><strong>Features:</strong><br>
-                      1. Automated and streamlined CI/CD pipeline for improved deployment efficiency<br>
-                      2. Enhanced system scalability and performance optimization<br>
-                      3. Continuous monitoring to track server performance and operational reliability<br>
-                      <br>
-                      <strong>GitHub Link:</strong> <a href="https://github.com/sanjaytechd" target="_blank">View on GitHub</a>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card project-card">
-                <img src="{{ url_for('static', filename='images/medical-service.png') }}" class="card-img-top project-image project-image--medicure" alt="Medicure healthcare deployment project" />
-                <div class="card-body">
-                  <h5 class="card-title">Medicure</h5>
-                  <p class="card-text">Healthcare CI/CD automation with Kubernetes orchestration for seamless deployment</p>
-                        <!-- Styled Button with Down Arrow -->
-                <button class="dropdown-btn" onclick="toggleDropdown('dropdown-4')">
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                  <div id="dropdown-4" class="dropdown-content">
-                    <p><strong>Features:</strong><br>
-                      1. Automated CI/CD pipeline for healthcare network deployment<br>
-                      2. Streamlined transitions to test and production environments<br>
-                      3. Kubernetes orchestration for improved scalability and reliability<br>
-                      <br>
-                      <strong>GitHub Link:</strong> <a href="https://github.com/sanjaytechd" target="_blank">View on GitHub</a>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card project-card">
-                <img src="{{ url_for('static', filename='images/insurance.png') }}" class="card-img-top project-image project-image--insure" alt="Insure me deployment project" />
-                <div class="card-body">
-                  <h5 class="card-title">Insure me</h5>
-                  <p class="card-text">Insurance domain CI/CD automation enabling seamless packaging and deployment</p>
-                        <!-- Styled Button with Down Arrow -->
-                <button class="dropdown-btn" onclick="toggleDropdown('dropdown-5')">
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                  <div id="dropdown-5" class="dropdown-content">
-                    <p><strong>Features:</strong><br>
-                      1. Automated CI/CD pipeline for insurance domain projects<br>
-                      2. Seamless packaging and deployment to test and production environments<br>
-                      3. Minimal manual effort with fully automated deployment workflows<br>
-                      <br>
-                      <strong>GitHub Link:</strong> <a href="https://github.com/sanjaytechd" target="_blank">View on GitHub</a>
-                    </p>
-                  </div>
-                </div>
-              </div>
+          <div id="architecture-modal" class="architecture-modal" role="dialog" aria-modal="true" aria-labelledby="architecture-modal-title" aria-hidden="true">
+            <div class="architecture-modal-backdrop" onclick="closeArchitecture()"></div>
+            <div class="architecture-modal-content">
+              <div class="architecture-modal-heading"><div><p class="project-type">Full system view</p><h3 id="architecture-modal-title">Architecture</h3></div><button type="button" class="architecture-modal-close" aria-label="Close architecture viewer" onclick="closeArchitecture()"><i class="fas fa-xmark"></i></button></div>
+              <div class="architecture-modal-image-wrap"><img id="architecture-modal-image" src="" alt="" /></div>
             </div>
           </div>
-        </div>
-      </section>
 
       <!-- Skills Section -->
       <section id="skills" class="py-5">

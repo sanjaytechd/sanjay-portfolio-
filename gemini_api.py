@@ -85,20 +85,33 @@ Guidelines for Responses:
 8. Match the tone to the user's question - be professional yet conversational
 9. If information isn't in the profile, say you don't have those details
 10. Always provide clear, helpful, and relevant information'''
-def ask_groq(prompt):
+def ask_groq(prompt, conversation_history=None):
     formatting_rules = """You MUST format the answer as clean, readable HTML.
 Use an HTML <table> whenever the answer contains two or more items with the same fields, comparisons, timelines, education records, jobs, projects, skills, certifications, tools, or other structured data. Do not use a paragraph or bullet list for data that is naturally tabular.
 Every table MUST include <thead>, one header row with descriptive <th> cells, and <tbody> with <td> cells. Do not use Markdown table syntax.
 Use headings, short paragraphs, and <ul>/<li> lists for explanations that are not naturally tabular. Use <strong>, <em>, <a>, and <br> where helpful. Keep answers concise and accurate."""
     response_rules = """Return ONLY valid JSON with exactly these keys:
-{"answer":"HTML answer for the user's question","suggestions":["user-perspective question 1","user-perspective question 2","user-perspective question 3"]}
-The answer must contain clean readable HTML and the suggestions must be exactly three concise, natural follow-up questions written from the user's perspective. Make the suggestions dynamically relevant to the user's question and the answer. Do not include Markdown fences or any text outside the JSON object."""
+{"answer":"HTML answer for the user's question","suggestions":["visitor question 1","visitor question 2","visitor question 3"]}
+The answer must contain clean readable HTML.
+
+The suggestions must always be exactly three concise, natural follow-up questions that a portfolio visitor would genuinely want to ask Sanjay. Write every suggestion from the visitor's first-person perspective using phrasing such as "What did you build...", "How did you...", "Can I learn more about...", or "What experience do you have...". Address Sanjay directly or refer to his work, skills, projects, certifications, education, or experience. Each suggestion must be directly answerable from Sanjay's portfolio context and must be relevant to the user's current question and your answer.
+
+Never generate generic questions, questions about the AI assistant, questions unrelated to Sanjay, personal questions not covered by the portfolio, or requests for information outside the portfolio. Avoid repeating the user's exact question. For example, after a question about RAG, good suggestions are "What RAG projects did Sanjay build?", "How did he improve RAG latency?", and "Which tools did he use for RAG?". Bad suggestions include "How are you today?", "What can you do?", and "Tell me a joke." Do not include Markdown fences or any text outside the JSON object."""
+    messages = [
+        {"role": "system", "content": f"{PORTFOLIO_CONTEXT}\n\nFormatting rules:\n{formatting_rules}\n\nResponse format:\n{response_rules}"},
+    ]
+
+    for turn in conversation_history or []:
+        messages.extend([
+            {"role": "user", "content": turn["question"]},
+            {"role": "assistant", "content": turn["response"]},
+        ])
+
+    messages.append({"role": "user", "content": prompt})
+
     try:
         response = groq_client.chat.completions.create(
-            messages=[
-                {"role": "system", "content": f"{PORTFOLIO_CONTEXT}\n\nFormatting rules:\n{formatting_rules}\n\nResponse format:\n{response_rules}"},
-                {"role": "user", "content": prompt},
-            ],
+            messages=messages,
             model="openai/gpt-oss-20b",
             response_format={"type": "json_object"},
         )
@@ -107,8 +120,12 @@ The answer must contain clean readable HTML and the suggestions must be exactly 
         if not isinstance(suggestions, list) or len(suggestions) != 3 or not all(isinstance(item, str) for item in suggestions):
             raise ValueError("The model did not return exactly three suggestions")
         return {"answer": result.get("answer", ""), "suggestions": suggestions}
-    except Exception as error:
-        return {"answer": f"<p>Error: {error}</p>", "suggestions": []}
+    except Exception:
+        app.logger.exception("LLM response generation failed")
+        return {
+            "answer": "<p>Sorry, I couldn't generate a response right now. Please try again.</p>",
+            "suggestions": [],
+        }
 
 @app.route("/", methods=["GET"])
 def home():
@@ -119,8 +136,16 @@ def home():
 
 @app.route("/chat", methods=["POST"])
 def chat():
-    user_input = request.json.get("message", "")
-    return jsonify(ask_groq(user_input))
+    payload = request.json or {}
+    user_input = payload.get("message", "")
+    history = payload.get("history", [])
+    valid_history = [
+        turn for turn in history[-3:]
+        if isinstance(turn, dict)
+        and isinstance(turn.get("question"), str)
+        and isinstance(turn.get("response"), str)
+    ]
+    return jsonify(ask_groq(user_input, valid_history))
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))  # Get port from Render or default 5000
