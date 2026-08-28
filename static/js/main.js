@@ -5,6 +5,15 @@ function trackAnalyticsEvent(eventName, eventParams = {}) {
 }
 
 const chatHistory = [];
+let featureGallery = [];
+let featureGalleryIndex = 0;
+let galleryTypingTimer;
+const galleryDescriptionPositions = ['top-left', 'bottom-right', 'center-left', 'top-right', 'bottom-left'];
+const projectGalleryAccents = {
+  'Document Intelligence platform': '#0aa6a6',
+  'Conversational Data Analytics Platform': '#7652b8',
+  'Multi-Agent Incident Management AI Assistant': '#d95e72'
+};
 
 function toggleMode() {
         // Toggle dark mode
@@ -31,15 +40,83 @@ function toggleDropdown(dropdownId) {
 
 function openArchitecture(trigger) {
   const modal = document.getElementById('architecture-modal');
-  const image = document.getElementById('architecture-modal-image');
   const title = document.getElementById('architecture-modal-title');
-  image.src = trigger.dataset.architectureSrc;
-  image.alt = `${trigger.dataset.architectureTitle} architecture diagram`;
+  document.getElementById('gallery-description').style.setProperty('--gallery-accent', 'var(--cyan)');
   title.textContent = trigger.dataset.architectureTitle;
+  featureGallery = [{
+    src: trigger.dataset.architectureSrc,
+    alt: `${trigger.dataset.architectureTitle} architecture diagram`
+  }];
+  featureGalleryIndex = 0;
+  renderGalleryImage();
   modal.classList.add('is-open');
   modal.setAttribute('aria-hidden', 'false');
   document.body.classList.add('architecture-modal-open');
   modal.querySelector('.architecture-modal-close').focus();
+}
+
+function openFeatures(trigger) {
+  const modal = document.getElementById('architecture-modal');
+  const title = document.getElementById('architecture-modal-title');
+  document.getElementById('gallery-description').style.setProperty('--gallery-accent', projectGalleryAccents[trigger.dataset.featuresTitle] || 'var(--cyan)');
+  featureGallery = JSON.parse(trigger.dataset.featuresImages);
+  featureGalleryIndex = 0;
+  title.textContent = trigger.dataset.featuresTitle;
+  renderGalleryImage();
+  modal.classList.add('is-open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('architecture-modal-open');
+  trackAnalyticsEvent('project_features_opened', { project_id: trigger.dataset.featuresTitle });
+  modal.querySelector('.architecture-modal-close').focus();
+}
+
+function renderGalleryImage() {
+  const image = document.getElementById('architecture-modal-image');
+  const counter = document.getElementById('gallery-counter');
+  const description = document.getElementById('gallery-description');
+  const previousButton = document.querySelector('.gallery-nav--previous');
+  const nextButton = document.querySelector('.gallery-nav--next');
+  const currentImage = featureGallery[featureGalleryIndex];
+  if (!currentImage) return;
+  clearInterval(galleryTypingTimer);
+  image.classList.add('gallery-image-loading');
+  image.dataset.gallerySrc = currentImage.src;
+  image.onload = () => {
+    if (image.dataset.gallerySrc === currentImage.src) {
+      image.classList.remove('gallery-image-loading');
+    }
+  };
+  image.src = currentImage.src;
+  image.alt = currentImage.alt;
+  const descriptionText = currentImage.description || 'System architecture and application flow.';
+  description.className = `gallery-description gallery-description--${galleryDescriptionPositions[featureGalleryIndex % galleryDescriptionPositions.length]}`;
+  description.classList.add('is-typing');
+  description.textContent = '';
+  let typedCharacters = 0;
+  galleryTypingTimer = setInterval(() => {
+    description.textContent = descriptionText.slice(0, typedCharacters += 1);
+    if (typedCharacters >= descriptionText.length) {
+      clearInterval(galleryTypingTimer);
+      description.classList.remove('is-typing');
+    }
+  }, 24);
+  counter.textContent = featureGallery.length > 1
+    ? `${featureGalleryIndex + 1} / ${featureGallery.length}`
+    : '';
+  previousButton.hidden = featureGallery.length < 2;
+  nextButton.hidden = featureGallery.length < 2;
+}
+
+function showPreviousFeature() {
+  if (featureGallery.length < 2) return;
+  featureGalleryIndex = (featureGalleryIndex - 1 + featureGallery.length) % featureGallery.length;
+  renderGalleryImage();
+}
+
+function showNextFeature() {
+  if (featureGallery.length < 2) return;
+  featureGalleryIndex = (featureGalleryIndex + 1) % featureGallery.length;
+  renderGalleryImage();
 }
 
 function closeArchitecture() {
@@ -52,6 +129,8 @@ function closeArchitecture() {
 
 document.addEventListener('keydown', event => {
   if (event.key === 'Escape') closeArchitecture();
+  if (event.key === 'ArrowLeft') showPreviousFeature();
+  if (event.key === 'ArrowRight') showNextFeature();
 });
 
 function toggleChatBox() {
