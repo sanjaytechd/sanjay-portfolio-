@@ -2310,6 +2310,11 @@ body.dark-mode .architecture-modal-close {
     left: 0.4rem;
   }
 
+  .gallery-description--center-left {
+    top: 0.4rem;
+    transform: none;
+  }
+
   .gallery-description--top-right,
   .gallery-description--bottom-right {
     right: 0.4rem;
