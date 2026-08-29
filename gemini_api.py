@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 import os
+import re
 import json
 from openai import OpenAI
 from flask_cors import CORS
@@ -11,11 +12,40 @@ groq_client = OpenAI(
     api_key=os.environ.get("GROQ_API_KEY"),
     base_url="https://api.groq.com/openai/v1",
 )
+ACKNOWLEDGEMENT_PHRASES = (
+    "thank you",
+    "thanks",
+    "thank u",
+    "thx",
+    "great",
+    "good job",
+    "nice",
+    "awesome",
+    "appreciate it",
+    "welcome",
+)
+
+
+def is_acknowledgement_message(message):
+    if not isinstance(message, str):
+        return False
+
+    text = re.sub(r"[^a-z0-9\s]", " ", message.lower()).strip()
+    if not text:
+        return False
+
+    if len(text.split()) <= 3 and any(phrase in text for phrase in ACKNOWLEDGEMENT_PHRASES):
+        return True
+
+    return text in ACKNOWLEDGEMENT_PHRASES
+
+
 PORTFOLIO_CONTEXT ='''You are Santy, an expert assistant representing Sanjay N., an Azure-certified GEN AI Engineer with hands-on experience building scalable multi-agent LLM systems for enterprise use. You have access to his complete professional background, technical expertise, project portfolio, and accomplishments as of July 13, 2026. Provide helpful, natural, and conversational responses to questions about his profile.
 
 Personal Information:
-Exact name spelling: Sanjay. Always spell the portfolio owner's name exactly as "Sanjay". "Santy" is the assistant's name, not the portfolio owner's name.
-Name: Sanjay N.
+Exact name spelling: Sanjay
+Always spell the portfolio owner's name exactly as "Sanjay". "Santy" is the assistant's name, not the portfolio owner's name.
+Name: Sanjay N
 Email: sanjaynbe2303@gmail.com
 Phone: +91-8951427835
 GitHub: github.com/sanjaytechd
@@ -58,8 +88,9 @@ Class 10th @ ST. Philomena's Memorial High School (2018) | 93.16%
 Key Projects:
 1. Document Intelligence Platform - AI-powered document and SQL query system with semantic search project  github project link: https://github.com/sanjaytechd/Document_Intelligence_Platform  
 2. Conversational Data Analytics Platform - No-code platform for natural-language insights and dashboards github project link:https://github.com/sanjaytechd/AI_Powered_Data_Analytcis_Platform
-3. AI Website Conversion Optimizer - AI-powered website auditing and enhancement system that analyzes a live website, detects weak conversion elements, and applies safe UX improvements with Playwright and LLM-driven recommendations : github project link:https://github.com/sanjaytechd/AI_website_enhaner.git
-4. Comprehensive Dementia Prediction System - SVM and CNN models achieving 96% (SVM) and 97% (CNN) accuracy : github project link:https://github.com/sanjaytechd/DementiaPrediction
+3. Multi-Agent Incident Management AI Assistant - LangGraph-based system for incident routing and SOP retrieval : github project link:https://github.com/sanjaytechd/Incident_Management_System
+4. AI Website Conversion Optimizer - AI-powered website auditing and enhancement system that analyzes a live website, detects weak conversion elements, and applies safe UX improvements with Playwright and LLM-driven recommendations : github project link:https://github.com/sanjaytechd/AI_website_enhaner.git
+5. Comprehensive Dementia Prediction System - SVM and CNN models achieving 96% (SVM) and 97% (CNN) accuracy : github project link:https://github.com/sanjaytechd/DementiaPrediction
 
 Technical Skills:
 Programming: Python, SQL, C, Java
@@ -86,13 +117,28 @@ Guidelines for Responses:
 9. If information isn't in the profile, say you don't have those details
 10. Always provide clear, helpful, and relevant information'''
 def ask_groq(prompt, conversation_history=None):
+    if is_acknowledgement_message(prompt):
+        return {
+            "answer": "<p>You're welcome! I'm glad I could help.</p>",
+            "suggestions": [
+                "What projects did Sanjay build?",
+                "How did he work with GenAI and RAG?",
+                "What experience does he have in agentic AI?"
+            ],
+        }
+
     formatting_rules = """You MUST format the answer as clean, readable HTML.
 Use an HTML <table> whenever the answer contains two or more items with the same fields, comparisons, timelines, education records, jobs, projects, skills, certifications, tools, or other structured data. Do not use a paragraph or bullet list for data that is naturally tabular.
 Every table MUST include <thead>, one header row with descriptive <th> cells, and <tbody> with <td> cells. Do not use Markdown table syntax.
-Use headings, short paragraphs, and <ul>/<li> lists for explanations that are not naturally tabular. Use <strong>, <em>, <a>, and <br> where helpful. Keep answers concise and accurate."""
+Use headings, short paragraphs, and <ul>/<li> lists for explanations that are not naturally tabular. Use <strong>, <em>, <a>, and <br> where helpful. Keep answers concise and accurate.
+
+When a comparison, trend, metric summary, project mix, skills breakdown, or timeline is clearer with a chart, use a simple inline HTML chart instead of plain text. For example, use a small bar-style chart with divs or a neat comparison table when the user asks for strengths, experience, project counts, or tool coverage. Prefer charts or tables when they improve readability, but keep the answer compact and professional.
+Use only HTML and CSS-friendly structures that can render in a browser. Do not return markdown code blocks or raw SVG/JS unless explicitly requested."""
     response_rules = """Return ONLY valid JSON with exactly these keys:
 {"answer":"HTML answer for the user's question","suggestions":["visitor question 1","visitor question 2","visitor question 3"]}
 The answer must contain clean readable HTML.
+
+Use HTML structure deliberately: tables for comparisons, charts for trends or breakdowns, headings for sections, and short paragraphs only when needed. If the question involves metrics, projects, tools, skills, certifications, or experience levels, prefer a concise table or simple bar chart using HTML elements.
 
 The suggestions must always be exactly three concise, natural follow-up questions that a portfolio visitor would genuinely want to ask Sanjay. Write every suggestion from the visitor's first-person perspective using phrasing such as "What did you build...", "How did you...", "Can I learn more about...", or "What experience do you have...". Address Sanjay directly or refer to his work, skills, projects, certifications, education, or experience. Each suggestion must be directly answerable from Sanjay's portfolio context and must be relevant to the user's current question and your answer.
 
@@ -139,6 +185,10 @@ def chat():
     payload = request.json or {}
     user_input = payload.get("message", "")
     history = payload.get("history", [])
+
+    if is_acknowledgement_message(user_input):
+        return jsonify(ask_groq(user_input, []))
+
     valid_history = [
         turn for turn in history[-3:]
         if isinstance(turn, dict)
