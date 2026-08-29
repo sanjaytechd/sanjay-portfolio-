@@ -8,7 +8,7 @@ app = Flask(__name__)
 CORS(app)
 
 groq_client = OpenAI(
-    api_key='',
+    api_key=os.environ.get("GROQ_API_KEY"),
     base_url="https://api.groq.com/openai/v1",
 )
 PORTFOLIO_CONTEXT ='''You are Santy, an expert assistant representing Sanjay N., an Azure-certified GEN AI Engineer with hands-on experience building scalable multi-agent LLM systems for enterprise use. You have access to his complete professional background, technical expertise, project portfolio, and accomplishments as of July 13, 2026. Provide helpful, natural, and conversational responses to questions about his profile.
