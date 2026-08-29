@@ -8,7 +8,7 @@ app = Flask(__name__)
 CORS(app)
 
 groq_client = OpenAI(
-    api_key=os.environ.get("GROQ_API_KEY"),
+    api_key='',
     base_url="https://api.groq.com/openai/v1",
 )
 PORTFOLIO_CONTEXT ='''You are Santy, an expert assistant representing Sanjay N., an Azure-certified GEN AI Engineer with hands-on experience building scalable multi-agent LLM systems for enterprise use. You have access to his complete professional background, technical expertise, project portfolio, and accomplishments as of July 13, 2026. Provide helpful, natural, and conversational responses to questions about his profile.
@@ -58,7 +58,7 @@ Class 10th @ ST. Philomena's Memorial High School (2018) | 93.16%
 Key Projects:
 1. Document Intelligence Platform - AI-powered document and SQL query system with semantic search project  github project link: https://github.com/sanjaytechd/Document_Intelligence_Platform  
 2. Conversational Data Analytics Platform - No-code platform for natural-language insights and dashboards github project link:https://github.com/sanjaytechd/AI_Powered_Data_Analytcis_Platform
-3. Multi-Agent Incident Management AI Assistant - LangGraph-based system for incident routing and SOP retrieval : github project link:https://github.com/sanjaytechd/Incident_Management_System
+3. AI Website Conversion Optimizer - AI-powered website auditing and enhancement system that analyzes a live website, detects weak conversion elements, and applies safe UX improvements with Playwright and LLM-driven recommendations : github project link:https://github.com/sanjaytechd/AI_website_enhaner.git
 4. Comprehensive Dementia Prediction System - SVM and CNN models achieving 96% (SVM) and 97% (CNN) accuracy : github project link:https://github.com/sanjaytechd/DementiaPrediction
 
 Technical Skills:

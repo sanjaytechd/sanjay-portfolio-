@@ -12,7 +12,7 @@ const galleryDescriptionPositions = ['top-left', 'bottom-right', 'center-left', 
 const projectGalleryAccents = {
   'Document Intelligence platform': '#0aa6a6',
   'Conversational Data Analytics Platform': '#7652b8',
-  'Multi-Agent Incident Management AI Assistant': '#d95e72'
+  'AI Website Conversion Optimizer': '#d95e72'
 };
 
 function toggleMode() {
